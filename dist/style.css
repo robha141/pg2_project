@@ -1,0 +1,60 @@
+button {
+    background: lightgray;
+    padding: 2rem 3rem;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+#start-game {
+    background: green;
+    color: white;
+    position: absolute;
+    left: 45%;
+    top: 45%;
+}
+
+#start-game:hover {
+    background: forestgreen;
+}
+
+
+#stop-game {
+    background: red;
+    color: white;
+    position: absolute;
+    left: 55%;
+    top: 45%;
+}
+
+#stop-game:hover {
+    background: indianred;
+}
+
+
+#toggle-texture {
+    background: blue;
+    color: white;
+    position: absolute;
+    left: 65%;
+    top: 45%;
+}
+
+#toggle-texture:hover {
+    background: dodgerblue;
+}
+
+#move-cube-up {
+    background: yellow;
+    color: black;
+    position: absolute;
+    left: 45%;
+    top: 65%;
+}
+
+#move-cube-up:hover {
+    background: orange;
+}
+
+
+
