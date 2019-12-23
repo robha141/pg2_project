@@ -1,7 +1,4 @@
-// import Triangle from './Triangle';
-import BlackHole from './BlackHole';
 import * as THREE from "three";
-import * as TWEEN from "tween.js";
 
 export default class Scene {
     constructor() {
@@ -15,34 +12,18 @@ export default class Scene {
         this.camera.position.x = 1;
         this.camera.position.y = 2;
         this.camera.position.z = 5;
-
-        // this.triangle = new Triangle(this.gl);
-        this.blackHole = new BlackHole(this.scene);
     }
+
+    // Setup
+
+    initialSetup() {
+        this.animate()
+    }
+
+    // Animation loop
 
     animate(time) {
         requestAnimationFrame(() => this.animate());
-        TWEEN.update(time);
         this.renderer.render(this.scene, this.camera);
-    }
-
-    render() {
-        this.animate();
-    }
-
-    startRotation() {
-        this.blackHole.startRotation();
-    }
-
-    stopRotation() {
-        this.blackHole.stopRotation();
-    }
-
-    showTexture() {
-        this.blackHole.showTexture();
-    }
-
-    hideTexture() {
-        this.blackHole.hideTexture();
     }
 }
