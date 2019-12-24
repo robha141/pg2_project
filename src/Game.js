@@ -1,26 +1,34 @@
 import * as THREE from "three";
 import Terrain from "./GameObjects/Terrain";
+import { Player } from "./GameObjects/Player";
+import { InputHandler } from "./InputHandler";
+import { CameraHandler } from "./CameraHandler";
 
 export default class Game {
     constructor() {
-        this.scene = new THREE.Scene();
-        this.camera = new THREE.PerspectiveCamera( 
-            100, 
-            window.innerWidth / window.innerHeight, 
-            0.1, 
-            1000
-        );
-        this.renderer = new THREE.WebGLRenderer();
-        this.clock = new THREE.Clock();
+        // Three
 
-        this.gameObjects = [];
-        this.terrain = new Terrain();
+        this.rayCaster = new THREE.Raycaster();
+        this.scene = new THREE.Scene();
+        this.renderer = new THREE.WebGLRenderer();
+
+        // Handlers
+
+        this.inputHandler = new InputHandler();
+        this.cameraHandler = new CameraHandler();
+
+        // Objects
+        
+        this.intersectObjects = [];
+        this.terrain = new Terrain(this.scene);
+        this.player = new Player(this.scene);
     }
 
     // Setup
 
     initialSetup() {
-        this.setupGameObjects()
+        // Intersect objects
+        this.intersectObjects.push(this.terrain.getAssociatedObject(this.scene));
 
         // Skybox (currently just background)
 
@@ -40,20 +48,6 @@ export default class Game {
 
         this.renderer.setSize( window.innerWidth, window.innerHeight );
         document.body.appendChild( this.renderer.domElement );
-
-        // Camera pos
-
-        this.camera.position.x = 0;
-        this.camera.position.y = 100;
-        this.camera.position.z = 50;
-        this.camera.lookAt(new THREE.Vector3(0, 0, 0));
-    }
-
-    setupGameObjects() {
-        this.gameObjects.push(this.terrain);
-        this.gameObjects.forEach((object) => {
-            object.onSetup(this.scene);
-        });
     }
 
     // Render loop
@@ -64,11 +58,27 @@ export default class Game {
 
     render(time) {
         requestAnimationFrame(() => this.render());
-        const delta = this.clock.getDelta();
-        this.gameObjects.forEach(object => {
-            object.delta = delta;
-            object.onRender();
-        })
-        this.renderer.render(this.scene, this.camera);
+        this.updatePlayer();
+        this.cameraHandler.updateCamera(this.player.position);
+        this.renderer.render(this.scene, this.cameraHandler.camera);
+    }
+
+    updatePlayer() {
+        if (this.inputHandler.mouseDown && this.inputHandler.shiftDown) {
+            // TODO: - shooting
+        } else if (this.inputHandler.mouseDown) {
+            this.updatePlayerPosition();
+        }
+    }
+
+    updatePlayerPosition() {
+        this.rayCaster.setFromCamera(this.inputHandler.mouse, this.cameraHandler.camera);
+        const intersects = this.rayCaster.intersectObjects(this.intersectObjects);
+        if (intersects.length > 0) {
+            this.player.calculateNewPosition(intersects[0].point);
+        }
+        this.player.getAssociatedObject(this.scene).position.x = this.player.position.x;
+        this.player.getAssociatedObject(this.scene).position.y = this.player.position.y;
+        this.player.getAssociatedObject(this.scene).position.z = this.player.position.z;
     }
 }
