@@ -1,9 +1,14 @@
-import Scene from './Scene';
+import Game from './Game';
 
-let scene;
+let game;
 
 window.onload = () => {
     // init the scene
-    scene = new Scene();
-    scene.initialSetup();
+    game = new Game();
+    game.initialSetup();
+    game.startRenderLoop();
+};
+
+window.onmousedown = () => {
+    console.log('Click');
 };

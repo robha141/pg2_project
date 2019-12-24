@@ -1,6 +1,4 @@
-import { Scene } from "../Scene";
-
-export class GameObject {
+export default class GameObject {
     constructor() {
         this.delta = 0.0;
     }
@@ -9,7 +7,5 @@ export class GameObject {
         throw new Error('Objects needs to be created and added to scene.');
     }
 
-    onRender() {
-        throw new Error('Objects needs to be rendered somehow.');
-    }
+    onRender() {}
 }
