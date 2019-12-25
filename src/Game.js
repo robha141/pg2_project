@@ -63,25 +63,46 @@ export default class Game {
         this.renderer.render(this.scene, this.cameraHandler.camera);
     }
 
+    // Player controls and update
+
+    playerIsShooting() {
+        return this.inputHandler.mouseDown 
+            && this.inputHandler.shiftDown
+    }
+
+    playerIsMoving() {
+        return this.inputHandler.mouseDown
+    }
+
     updatePlayer() {
-        if (this.inputHandler.mouseDown && this.inputHandler.shiftDown) {
+        if (this.playerIsShooting()) {
             // TODO: - shooting
-        } else if (this.inputHandler.mouseDown) {
-            this.rayCaster.setFromCamera(this.inputHandler.mouse, this.cameraHandler.camera);
-            const intersects = this.rayCaster.intersectObjects(this.intersectObjects);
+        } else if (this.playerIsMoving()) {
+            const intersects = this.getIntersections(this.intersectObjects);
             if (intersects.length > 0) {
-                console.log(this.player);
                 this.player.setNewPosition(intersects[0].point);
             }
         }
-        this.updatePlayerPosition();
+        this.updatePlayerTransformation();
     }
 
-    updatePlayerPosition() {
+    updatePlayerTransformation() {
         this.player.calculateNewPosition();
         const playerObject = this.player.getAssociatedObject(this.scene);
         playerObject.position.x = this.player.position.x;
         playerObject.position.y = this.player.position.y;
         playerObject.position.z = this.player.position.z;
+    }
+
+    rotate() {
+        const playerObject = this.player.getAssociatedObject(this.scene);
+        playerObject.rotateY(0.7853981634);
+    }
+
+    // Raycasting
+
+    getIntersections(objects) {
+        this.rayCaster.setFromCamera(this.inputHandler.mouse, this.cameraHandler.camera);
+        return this.rayCaster.intersectObjects(objects);
     }
 }

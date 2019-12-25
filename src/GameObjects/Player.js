@@ -1,12 +1,16 @@
 import * as THREE from "three";
 import { GameObjectModel } from "./GameObjectModel";
+import { UniformsUtils } from "three";
+import * as UTILS from "../Utils";
 
 export class Player extends GameObjectModel {
     constructor(scene) {
         super('Player');
-        this.speed = 5;
-        this.moveTo = new THREE.Vector3(0, 0, 0);
-        this.position = new THREE.Vector3(0, 0, 0);
+        this.lookAt = new THREE.Vector3(0, 0, 1);
+        this.moveTo = new THREE.Vector3();
+        this.position = new THREE.Vector3();
+        this.speed = 3;
+
         const playerSize = 20;
         const outlineSize = playerSize * 0.05;
 
@@ -15,7 +19,27 @@ export class Player extends GameObjectModel {
             playerSize, 
             playerSize
         );
-        let material = new THREE.MeshBasicMaterial( {color: 0xff0000} );
+        var material = new THREE.MeshFaceMaterial([
+            new THREE.MeshBasicMaterial({
+                color: 0x00ff00
+            }),
+            new THREE.MeshBasicMaterial({
+                color: 0xff0000
+            }),
+            new THREE.MeshBasicMaterial({
+                color: 0x0000ff
+            }),
+            new THREE.MeshBasicMaterial({
+                color: 0xf00000
+            }),
+            new THREE.MeshBasicMaterial({
+                color: 0x00000f
+            }),
+            new THREE.MeshBasicMaterial({
+                color: 0xf0000f
+            })
+        ]);
+        // let material = new THREE.MeshBasicMaterial( {color: 0xff0000} );
         let player = new THREE.Mesh(
             geometry, 
             material
@@ -25,6 +49,7 @@ export class Player extends GameObjectModel {
         player.position.z = this.position.z;
         scene.add(player);
         player.name = this.name;
+
 
         let outlineGeometry = new THREE.BoxGeometry(
             playerSize + outlineSize, 
@@ -37,11 +62,16 @@ export class Player extends GameObjectModel {
             outlineMaterial
         );
         player.add(playerOutline);
+
+
+        player.rotateY(0.7853981634);
+        // playerOutline.rotateY(0.7853981634);
     }
 
     setNewPosition(newPosition) {
         this.moveTo.x = newPosition.x;
         this.moveTo.z = newPosition.z;
+        this.lookAt = newPosition;
     }
 
     // Calculating new position according tutorial from http://bryanjones.us/article/basic-threejs-game-tutorial-part-3-moving
@@ -57,8 +87,6 @@ export class Player extends GameObjectModel {
             Math.floor(this.position.z) >= Math.floor(newPosZ) - 1.5)) {
             return
         }
-
-        
 
         let multiplierX = 1;
         let multiplierZ = 1;
