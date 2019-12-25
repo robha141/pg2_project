@@ -67,18 +67,21 @@ export default class Game {
         if (this.inputHandler.mouseDown && this.inputHandler.shiftDown) {
             // TODO: - shooting
         } else if (this.inputHandler.mouseDown) {
-            this.updatePlayerPosition();
+            this.rayCaster.setFromCamera(this.inputHandler.mouse, this.cameraHandler.camera);
+            const intersects = this.rayCaster.intersectObjects(this.intersectObjects);
+            if (intersects.length > 0) {
+                console.log(this.player);
+                this.player.setNewPosition(intersects[0].point);
+            }
         }
+        this.updatePlayerPosition();
     }
 
     updatePlayerPosition() {
-        this.rayCaster.setFromCamera(this.inputHandler.mouse, this.cameraHandler.camera);
-        const intersects = this.rayCaster.intersectObjects(this.intersectObjects);
-        if (intersects.length > 0) {
-            this.player.calculateNewPosition(intersects[0].point);
-        }
-        this.player.getAssociatedObject(this.scene).position.x = this.player.position.x;
-        this.player.getAssociatedObject(this.scene).position.y = this.player.position.y;
-        this.player.getAssociatedObject(this.scene).position.z = this.player.position.z;
+        this.player.calculateNewPosition();
+        const playerObject = this.player.getAssociatedObject(this.scene);
+        playerObject.position.x = this.player.position.x;
+        playerObject.position.y = this.player.position.y;
+        playerObject.position.z = this.player.position.z;
     }
 }

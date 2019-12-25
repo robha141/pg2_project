@@ -4,6 +4,8 @@ import { GameObjectModel } from "./GameObjectModel";
 export class Player extends GameObjectModel {
     constructor(scene) {
         super('Player');
+        this.speed = 5;
+        this.moveTo = new THREE.Vector3(0, 0, 0);
         this.position = new THREE.Vector3(0, 0, 0);
         const playerSize = 20;
         const outlineSize = playerSize * 0.05;
@@ -37,8 +39,42 @@ export class Player extends GameObjectModel {
         player.add(playerOutline);
     }
 
-    calculateNewPosition(newPosition) {
-        this.position.x = newPosition.x;
-        this.position.z = newPosition.z;
+    setNewPosition(newPosition) {
+        this.moveTo.x = newPosition.x;
+        this.moveTo.z = newPosition.z;
+    }
+
+    // Calculating new position according tutorial from http://bryanjones.us/article/basic-threejs-game-tutorial-part-3-moving
+    calculateNewPosition() {
+        const posX = this.position.x;
+        const posZ = this.position.z;
+        const newPosX = this.moveTo.x;
+        const newPosZ = this.moveTo.z;
+
+        if ((Math.floor(this.position.x) <= Math.floor(newPosX) + 1.5 && 
+            Math.floor(this.position.x) >= Math.floor(newPosX) - 1.5) &&
+            (Math.floor(this.position.z) <= Math.floor(newPosZ) + 1.5 && 
+            Math.floor(this.position.z) >= Math.floor(newPosZ) - 1.5)) {
+            return
+        }
+
+        
+
+        let multiplierX = 1;
+        let multiplierZ = 1;
+
+        const diffX = Math.abs( posX - newPosX );
+        const diffZ = Math.abs( posZ - newPosZ );
+        const distance = Math.sqrt( diffX * diffX + diffZ * diffZ );
+
+        if (posX > newPosX) {
+            multiplierX = -1;
+        }
+        if (posZ > newPosZ) {
+            multiplierZ = -1;
+        }
+
+        this.position.x = this.position.x + (this.speed * (diffX / distance)) * multiplierX;
+        this.position.z = this.position.z + (this.speed * (diffZ / distance)) * multiplierZ;
     }
 }
