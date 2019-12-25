@@ -34,7 +34,5 @@ window.onkeydown = (event) => {
 window.onkeyup = (event) => {
     if (event.key == 'Shift') {
         game.inputHandler.holdingShiftKey(false);
-    } else if (event.key == ' ') {
-        game.rotate();
     }
 };

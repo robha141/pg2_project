@@ -1,10 +1,9 @@
 import * as THREE from "three";
-import * as UTILS from "./Utils";
 
 export class CameraHandler {
     constructor() {
-        this.cameraHeight = 50;
-        this.cameraZOffset = 35;
+        this.cameraHeight = 100;
+        this.cameraZOffset = 55;
         this.camera = new THREE.PerspectiveCamera( 
             100, 
             window.innerWidth / window.innerHeight, 

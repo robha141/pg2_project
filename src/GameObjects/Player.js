@@ -1,12 +1,11 @@
 import * as THREE from "three";
 import { GameObjectModel } from "./GameObjectModel";
-import { UniformsUtils } from "three";
-import * as UTILS from "../Utils";
 
 export class Player extends GameObjectModel {
     constructor(scene) {
         super('Player');
-        this.lookAt = new THREE.Vector3(0, 0, 1);
+        this.angle = 0;
+        this.lookAt = new THREE.Vector3();
         this.moveTo = new THREE.Vector3();
         this.position = new THREE.Vector3();
         this.speed = 3;
@@ -19,27 +18,7 @@ export class Player extends GameObjectModel {
             playerSize, 
             playerSize
         );
-        var material = new THREE.MeshFaceMaterial([
-            new THREE.MeshBasicMaterial({
-                color: 0x00ff00
-            }),
-            new THREE.MeshBasicMaterial({
-                color: 0xff0000
-            }),
-            new THREE.MeshBasicMaterial({
-                color: 0x0000ff
-            }),
-            new THREE.MeshBasicMaterial({
-                color: 0xf00000
-            }),
-            new THREE.MeshBasicMaterial({
-                color: 0x00000f
-            }),
-            new THREE.MeshBasicMaterial({
-                color: 0xf0000f
-            })
-        ]);
-        // let material = new THREE.MeshBasicMaterial( {color: 0xff0000} );
+        let material = new THREE.MeshBasicMaterial( {color: 0xffffff} );
         let player = new THREE.Mesh(
             geometry, 
             material
@@ -62,16 +41,18 @@ export class Player extends GameObjectModel {
             outlineMaterial
         );
         player.add(playerOutline);
-
-
-        player.rotateY(0.7853981634);
-        // playerOutline.rotateY(0.7853981634);
     }
 
     setNewPosition(newPosition) {
         this.moveTo.x = newPosition.x;
         this.moveTo.z = newPosition.z;
-        this.lookAt = newPosition;
+    }
+
+    calculateAngle(newPosition) {
+        const currentPos = new THREE.Vector3(this.position.x, 0, this.position.z);
+        this.lookAt.subVectors(newPosition, currentPos).normalize();
+        this.lookAt.x += newPosition.x;
+        this.lookAt.y += newPosition.z;
     }
 
     // Calculating new position according tutorial from http://bryanjones.us/article/basic-threejs-game-tutorial-part-3-moving

@@ -81,6 +81,7 @@ export default class Game {
             const intersects = this.getIntersections(this.intersectObjects);
             if (intersects.length > 0) {
                 this.player.setNewPosition(intersects[0].point);
+                this.player.calculateAngle(intersects[0].point);
             }
         }
         this.updatePlayerTransformation();
@@ -92,11 +93,7 @@ export default class Game {
         playerObject.position.x = this.player.position.x;
         playerObject.position.y = this.player.position.y;
         playerObject.position.z = this.player.position.z;
-    }
-
-    rotate() {
-        const playerObject = this.player.getAssociatedObject(this.scene);
-        playerObject.rotateY(0.7853981634);
+        playerObject.lookAt(this.player.lookAt.x, 0, this.player.lookAt.y);
     }
 
     // Raycasting
