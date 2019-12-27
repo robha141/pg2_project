@@ -138,9 +138,10 @@ export class Player extends GameObject {
         if (!this.shootingClock.running ||
             this.shootingClock.getElapsedTime() >= SHOOTING_SPEED) {
             this.shootingClock.start();
-            console.log('Fire !');
+            const player = this.getObjectByName(PLAYER_OBJECT_NAME);
             const color = new THREE.Color(0xff0000);
-            const bullet = new Bullet(this.game, color, this.lookAt, this.position);
+            const lookNormalized = this.lookAt.normalize();
+            const bullet = new Bullet(this.game, color, player.quaternion, this.position);
             this.game.addGameObject(bullet);
         }
     }

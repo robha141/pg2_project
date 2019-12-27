@@ -25,7 +25,7 @@ export class Scene {
         return this.scene.getObjectByName(name);
     }
 
-    getObjectById(uuid) {
-        return this.scene.getObjectByName(name);
+    getObjectById(id) {
+        return this.scene.getObjectById(id);
     }
 }

@@ -1,60 +1,29 @@
-button {
-    background: lightgray;
-    padding: 2rem 3rem;
-    font-weight: bold;
-    font-size: 1rem;
-    cursor: pointer;
+body {
+    overflow: hidden;
+    margin: 0;
 }
 
-#start-game {
-    background: green;
-    color: white;
+.ui {
     position: absolute;
-    left: 45%;
-    top: 45%;
 }
 
-#start-game:hover {
-    background: forestgreen;
-}
-
-
-#stop-game {
-    background: red;
-    color: white;
+#colorMixContainer {
     position: absolute;
-    left: 55%;
-    top: 45%;
+    width: 35%;
+    height: 98px;
+    background: rgba(0,0,0,0);
+    bottom: 12px;
+    right: 25%;
+    left: 50%;
+    margin-left:-150px;
 }
 
-#stop-game:hover {
-    background: indianred;
+.colorMixPart {
+    margin: 12px;
+    width: 74px;
+    height: 74px;
+    border-radius: 50%;
+    display: inline-block;
+    border: 3px solid black;
 }
-
-
-#toggle-texture {
-    background: blue;
-    color: white;
-    position: absolute;
-    left: 65%;
-    top: 45%;
-}
-
-#toggle-texture:hover {
-    background: dodgerblue;
-}
-
-#move-cube-up {
-    background: yellow;
-    color: black;
-    position: absolute;
-    left: 45%;
-    top: 65%;
-}
-
-#move-cube-up:hover {
-    background: orange;
-}
-
-
 

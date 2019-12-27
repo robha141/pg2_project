@@ -21,8 +21,8 @@ export class GameObject {
         return this.game.scene.getObjectByName(name);
     }
 
-    getObjectById(uuid) {
-        return this.game.scene.getObjectByName(name);
+    getObjectById(id) {
+        return this.game.scene.getObjectById(id);
     }
 
     getIntersections(objects) {

@@ -1,9 +1,6 @@
 import Game from './Game';
 import { InputHandler } from './Handlers/InputHandler';
-import { Player } from './GameObjects/Player';
-import Terrain from './GameObjects/Terrain';
 import { CameraHandler } from './Handlers/CameraHandler';
-import { Scene } from './Scene';
 
 let game;
 let inputHandler;
@@ -16,6 +13,12 @@ window.onload = () => {
     game = new Game(inputHandler, cameraHandler);
     game.initialSetup();
     game.startGame();
+    var x = document.getElementById("firstCircle");
+    x.style.background = "red";
+    var y = document.getElementById("secondCircle");
+    y.style.background = "green";
+    var z = document.getElementById("thirdCircle");
+    z.style.background = "blue";
 };
 
 window.onmousedown = (event) => {
