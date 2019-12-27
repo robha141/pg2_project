@@ -21,6 +21,10 @@ export class GameObject {
         return this.game.scene.getObjectByName(name);
     }
 
+    getObjectById(uuid) {
+        return this.game.scene.getObjectByName(name);
+    }
+
     getIntersections(objects) {
         return this.game.raycastHandler.getIntersections(objects);
     }

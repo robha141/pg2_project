@@ -12,7 +12,7 @@ export default class Game {
         this.renderer = new THREE.WebGLRenderer();
         this.raycastHandler = new RaycastHandler(inputHandler, cameraHandler);
         this.objects = [
-            new Player(this), 
+            new Player(this),
             new Terrain(this)
         ];
     }
@@ -39,5 +39,12 @@ export default class Game {
         requestAnimationFrame(() => this.render());
         this.objects.forEach(object => object.onUpdate());
         this.renderer.render(this.scene.scene, this.cameraHandler.camera);
+    }
+
+    // Game object management
+
+    addGameObject(object) {
+        object.onSetup();
+        this.objects.push(object);
     }
 }

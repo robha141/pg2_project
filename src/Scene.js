@@ -24,4 +24,8 @@ export class Scene {
     getObjectByName(name) {
         return this.scene.getObjectByName(name);
     }
+
+    getObjectById(uuid) {
+        return this.scene.getObjectByName(name);
+    }
 }

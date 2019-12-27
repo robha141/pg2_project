@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { GameObject } from "./GameObject";
 import { TERRAIN_OBJECT_NAME } from "./Terrain";
+import { Bullet } from "./Bullet";
 
 const PLAYER_SIZE = 20;
 const PLAYER_SPEED = 3;
@@ -44,6 +45,7 @@ export class Player extends GameObject {
             outlineMaterial
         );
         player.add(playerOutline);
+        console.log(player.id);
     }
 
     onUpdate() {
@@ -133,12 +135,13 @@ export class Player extends GameObject {
     // Shooting
 
     shoot() {
-        if (!this.shootingClock.running) {
-            this.shootingClock.start();
-        }
-        if (this.shootingClock.getElapsedTime() >= SHOOTING_SPEED) {
+        if (!this.shootingClock.running ||
+            this.shootingClock.getElapsedTime() >= SHOOTING_SPEED) {
             this.shootingClock.start();
             console.log('Fire !');
+            const color = new THREE.Color(0xff0000);
+            const bullet = new Bullet(this.game, color, this.lookAt, this.position);
+            this.game.addGameObject(bullet);
         }
     }
 
