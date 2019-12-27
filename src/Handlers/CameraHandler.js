@@ -12,10 +12,10 @@ export class CameraHandler {
         );
     }
 
-    updateCamera(playerPosition) {
-        this.camera.position.x = playerPosition.x;
+    updateCamera(scenePosition) {
+        this.camera.position.x = scenePosition.x;
         this.camera.position.y = this.cameraHeight;
-        this.camera.position.z = playerPosition.z + this.cameraZOffset;
-        this.camera.lookAt(playerPosition);
+        this.camera.position.z = scenePosition.z + this.cameraZOffset;
+        this.camera.lookAt(scenePosition);
     }
 }

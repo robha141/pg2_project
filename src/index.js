@@ -1,38 +1,47 @@
 import Game from './Game';
+import { InputHandler } from './Handlers/InputHandler';
+import { Player } from './GameObjects/Player';
+import Terrain from './GameObjects/Terrain';
+import { CameraHandler } from './Handlers/CameraHandler';
+import { Scene } from './Scene';
 
 let game;
+let inputHandler;
+let cameraHandler;
 
 window.onload = () => {
     // init the scene
-    game = new Game();
+    cameraHandler = new CameraHandler();
+    inputHandler = new InputHandler();
+    game = new Game(inputHandler, cameraHandler);
     game.initialSetup();
-    game.startRenderLoop();
+    game.startGame();
 };
 
 window.onmousedown = (event) => {
-    game.inputHandler.holdingMouse(true);
-    game.inputHandler.updateMouse(event, game.renderer);
+    inputHandler.holdingMouse(true);
+    inputHandler.updateMouse(event, game.renderer);
 };
 
 window.onmouseup = (event) => {
-    game.inputHandler.holdingMouse(false);
-    game.inputHandler.updateMouse(event, game.renderer);
+    inputHandler.holdingMouse(false);
+    inputHandler.updateMouse(event, game.renderer);
 };
 
 window.onmousemove = (event) => {
-    if (game.inputHandler.mouseDown) {
-        game.inputHandler.updateMouse(event, game.renderer);
+    if (inputHandler.mouseDown) {
+        inputHandler.updateMouse(event, game.renderer);
     }
 };
 
 window.onkeydown = (event) => {
     if (event.key == 'Shift') {
-        game.inputHandler.holdingShiftKey(true);
+        inputHandler.holdingShiftKey(true);
     }
 };
 
 window.onkeyup = (event) => {
     if (event.key == 'Shift') {
-        game.inputHandler.holdingShiftKey(false);
+        inputHandler.holdingShiftKey(false);
     }
 };
