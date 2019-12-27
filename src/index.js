@@ -35,13 +35,13 @@ window.onmousemove = (event) => {
 };
 
 window.onkeydown = (event) => {
-    if (event.key == 'Shift') {
+    if (event.key == ' ') {
         inputHandler.holdingShiftKey(true);
     }
 };
 
 window.onkeyup = (event) => {
-    if (event.key == 'Shift') {
+    if (event.key == ' ') {
         inputHandler.holdingShiftKey(false);
     }
 };

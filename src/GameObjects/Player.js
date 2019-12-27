@@ -1,14 +1,16 @@
 import * as THREE from "three";
 import { GameObject } from "./GameObject";
 import { TERRAIN_OBJECT_NAME } from "./Terrain";
-import { RaycastHandler } from "../Handlers/RaycastHanldler";
 
 const PLAYER_SIZE = 20;
 const PLAYER_SPEED = 3;
+const SHOOTING_SPEED = 0.3;
 const PLAYER_OBJECT_NAME = 'Player';
 
 export class Player extends GameObject {
     onSetup() {
+        this.shootingClock = new THREE.Clock(false);
+        this.shootingClock.start();
         const OUTLINE_SIZE = PLAYER_SIZE * 0.05;
         this.PLAYER_Y = OUTLINE_SIZE + PLAYER_SIZE / 2;
         this.lookAt = new THREE.Vector3();
@@ -20,7 +22,7 @@ export class Player extends GameObject {
             PLAYER_SIZE, 
             PLAYER_SIZE
         );
-        let material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+        let material = new THREE.MeshBasicMaterial( {color: 0xffffff} );
         let player = new THREE.Mesh(
             geometry, 
             material
@@ -47,12 +49,16 @@ export class Player extends GameObject {
     onUpdate() {
         const terrain = this.getObjectByName(TERRAIN_OBJECT_NAME);
         if (this.playerIsShooting()) {
-            // TODO: - shooting
-            this.calculateRotation(this.getFirstIntersectionNames([terrain]));
+            this.calculateRotation(this.getFirstIntersection([terrain]));
+            this.setNewPosition(this.position);
+            this.shoot();
         } else if (this.playerIsMoving()) {
-            const point = this.getFirstIntersectionNames([terrain]);
+            const point = this.getFirstIntersection([terrain]);
             this.setNewPosition(point);
             this.calculateRotation(point);
+            this.stopShooting();
+        } else {
+            this.stopShooting();
         }
         this.calculateNewPosition();
         this.updatePlayerObject();
@@ -127,6 +133,16 @@ export class Player extends GameObject {
     // Shooting
 
     shoot() {
-        console.log('Fire!');
+        if (!this.shootingClock.running) {
+            this.shootingClock.start();
+        }
+        if (this.shootingClock.getElapsedTime() >= SHOOTING_SPEED) {
+            this.shootingClock.start();
+            console.log('Fire !');
+        }
+    }
+
+    stopShooting() {
+        this.shootingClock.stop();
     }
 }

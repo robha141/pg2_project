@@ -25,7 +25,7 @@ export class GameObject {
         return this.game.raycastHandler.getIntersections(objects);
     }
 
-    getFirstIntersectionNames(objects) {
+    getFirstIntersection(objects) {
         return this.game.raycastHandler.getFirstIntersection(objects);
     }
 
