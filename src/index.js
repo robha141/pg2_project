@@ -1,24 +1,22 @@
 import Game from './Game';
 import { InputHandler } from './Handlers/Input/InputHandler';
 import { CameraHandler } from './Handlers/CameraHandler';
+import { UiHandler } from './Handlers/UiHandler';
 
 let game;
 let inputHandler;
 let cameraHandler;
+let uiHandler;
 
 window.onload = () => {
     // init the scene
+    uiHandler = new UiHandler();
     cameraHandler = new CameraHandler();
     inputHandler = new InputHandler();
+    uiHandler.updateColors(inputHandler.colorHandler.colors);
     game = new Game(inputHandler, cameraHandler);
     game.initialSetup();
     game.startGame();
-    var x = document.getElementById("firstCircle");
-    x.style.background = "red";
-    var y = document.getElementById("secondCircle");
-    y.style.background = "green";
-    var z = document.getElementById("thirdCircle");
-    z.style.background = "blue";
 };
 
 window.onmousedown = (event) => {
@@ -42,6 +40,7 @@ window.onkeydown = (event) => {
         inputHandler.holdingShiftKey(true);
     }
     inputHandler.colorHandler.handleInput(event.code);
+    uiHandler.updateColors(inputHandler.colorHandler.colors);
 };
 
 window.onkeyup = (event) => {

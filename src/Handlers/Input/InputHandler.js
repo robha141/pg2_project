@@ -21,14 +21,4 @@ export class InputHandler {
         this.mouse.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
         this.mouse.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
     }
-
-    // Color handler convience functions.
-
-    getHexColor() {
-        return this.colorHandler.hexColor;
-    }
-
-    getColors() {
-        return this.colorHandler.colors;
-    }
 }

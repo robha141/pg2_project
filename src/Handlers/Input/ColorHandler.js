@@ -45,7 +45,7 @@ export class ColorHandler {
             }
         });
         hexColorArray.unshift('0x');
-        this.hexColor = hexColorArray.join("");
+        this.hexColor = hexColorArray.join('');
     }
 
     newColorSelected(color) {
