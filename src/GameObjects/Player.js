@@ -1,15 +1,17 @@
 import * as THREE from "three";
 import { GameObject } from "./GameObject";
-import { TERRAIN_OBJECT_NAME } from "./Terrain";
-import { Bullet } from "./Bullet";
+import { Bullet } from "./Bullet/Bullet";
+import { BulletFactory } from "./Bullet/BulletFactory";
 
 const PLAYER_SIZE = 20;
 const PLAYER_SPEED = 3;
 const SHOOTING_SPEED = 0.3;
-const PLAYER_OBJECT_NAME = 'Player';
 
+// TODO
+// - player rotation with quaternion
 export class Player extends GameObject {
     onSetup() {
+        this.bulletFactory = new BulletFactory(this);
         this.shootingClock = new THREE.Clock(false);
         this.shootingClock.start();
         const OUTLINE_SIZE = PLAYER_SIZE * 0.05;
@@ -31,8 +33,7 @@ export class Player extends GameObject {
         player.position.x = this.position.x;
         player.position.y = this.position.y;
         player.position.z = this.position.z;
-        this.addObjectToScene(player);
-        player.name = PLAYER_OBJECT_NAME;
+        this.sceneObject = player;
         // Outline
         let outlineGeometry = new THREE.BoxGeometry(
             PLAYER_SIZE + OUTLINE_SIZE, 
@@ -45,17 +46,17 @@ export class Player extends GameObject {
             outlineMaterial
         );
         player.add(playerOutline);
-        console.log(player.id);
+        super.onSetup();
     }
 
     onUpdate() {
-        const terrain = this.getObjectByName(TERRAIN_OBJECT_NAME);
+        const terrain = this.game.getTerrain();
         if (this.playerIsShooting()) {
-            this.calculateRotation(this.getFirstIntersection([terrain]));
+            this.calculateRotation(terrain.getSceneObjectIntersection());
             this.setNewPosition(this.position);
             this.shoot();
         } else if (this.playerIsMoving()) {
-            const point = this.getFirstIntersection([terrain]);
+            const point = terrain.getSceneObjectIntersection();
             this.setNewPosition(point);
             this.calculateRotation(point);
             this.stopShooting();
@@ -68,11 +69,10 @@ export class Player extends GameObject {
     }
 
     updatePlayerObject() {
-        const player = this.getObjectByName(PLAYER_OBJECT_NAME);
-        player.position.x = this.position.x;
-        player.position.y = this.position.y;
-        player.position.z = this.position.z;
-        player.lookAt(this.lookAt.x, this.PLAYER_Y, this.lookAt.y);
+        this.sceneObject.position.x = this.position.x;
+        this.sceneObject.position.y = this.position.y;
+        this.sceneObject.position.z = this.position.z;
+        this.sceneObject.lookAt(this.lookAt.x, this.PLAYER_Y, this.lookAt.y);
     }
 
     // Player convience functions
@@ -138,11 +138,7 @@ export class Player extends GameObject {
         if (!this.shootingClock.running ||
             this.shootingClock.getElapsedTime() >= SHOOTING_SPEED) {
             this.shootingClock.start();
-            const player = this.getObjectByName(PLAYER_OBJECT_NAME);
-            const color = new THREE.Color(0xff0000);
-            const lookNormalized = this.lookAt.normalize();
-            const bullet = new Bullet(this.game, color, player.quaternion, this.position);
-            this.game.addGameObject(bullet);
+            this.bulletFactory.makeBullet();
         }
     }
 

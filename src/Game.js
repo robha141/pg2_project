@@ -11,16 +11,16 @@ export default class Game {
         this.scene = new Scene();
         this.renderer = new THREE.WebGLRenderer();
         this.raycastHandler = new RaycastHandler(inputHandler, cameraHandler);
-        this.objects = [
-            new Player(this),
-            new Terrain(this)
-        ];
+        this.objects = [];
     }
 
     // Setup
 
     initialSetup() {
-        this.objects.forEach(object => object.onSetup());
+        const terrain = new Terrain(this);
+        terrain.addToGame();
+        const player = new Player(this);
+        player.addToGame();
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild( this.renderer.domElement );
     }
@@ -43,8 +43,26 @@ export default class Game {
 
     // Game object management
 
+    /**
+     * Called automatically in constructor when creating subclass of GameObject.
+     */
     addGameObject(object) {
         object.onSetup();
         this.objects.push(object);
+    }
+
+    removeGameObject(object) {
+        const index = this.objects.indexOf(object);
+        if (index > -1) {
+            this.objects.splice(index, 1);
+        }
+    }
+
+    getPlayer() {
+        return this.objects[1];
+    }
+
+    getTerrain() {
+        return this.objects[0];
     }
 }

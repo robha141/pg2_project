@@ -21,11 +21,7 @@ export class Scene {
         this.scene.add(object);
     }
 
-    getObjectByName(name) {
-        return this.scene.getObjectByName(name);
-    }
-
-    getObjectById(id) {
-        return this.scene.getObjectById(id);
+    remove(object) {
+        this.scene.remove(object);
     }
 }

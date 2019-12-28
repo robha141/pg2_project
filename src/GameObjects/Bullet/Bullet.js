@@ -1,7 +1,7 @@
-import { GameObject } from "./GameObject";
+import { GameObject } from "../GameObject";
 import * as THREE from "three";
 
-const BULLET_SPEED = 0.5;
+const BULLET_SPEED = 5;
 const BULLET_RADIUS = 3;
 
 export class Bullet extends GameObject {
@@ -19,8 +19,7 @@ export class Bullet extends GameObject {
         bullet.position.y = startPosition.y;
         bullet.position.z = startPosition.z;
         bullet.applyQuaternion(quaternion);
-        this.objectId = bullet.id;
-        this.addObjectToScene(bullet);
+        this.sceneObject = bullet;
         // Outline
         const OUTLINE_SIZE = BULLET_RADIUS * 0.05;
         const outlineGeometry = new THREE.SphereGeometry(
@@ -37,10 +36,9 @@ export class Bullet extends GameObject {
     }
 
     onUpdate() {
-        const bullet = this.getObjectById(this.objectId);
-        bullet.translateZ(BULLET_SPEED);
+        this.sceneObject.translateZ(BULLET_SPEED);
         if (this.clock.getElapsedTime() >= 1) {
-            
+            this.removeFromSceneAndGame();
         }
     }
 }
