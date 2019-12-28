@@ -1,5 +1,5 @@
 import Game from './Game';
-import { InputHandler } from './Handlers/InputHandler';
+import { InputHandler } from './Handlers/Input/InputHandler';
 import { CameraHandler } from './Handlers/CameraHandler';
 
 let game;
@@ -41,6 +41,7 @@ window.onkeydown = (event) => {
     if (event.key == ' ') {
         inputHandler.holdingShiftKey(true);
     }
+    inputHandler.colorHandler.handleInput(event.code);
 };
 
 window.onkeyup = (event) => {

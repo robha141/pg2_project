@@ -1,6 +1,5 @@
 import * as THREE from "three";
 import { GameObject } from "./GameObject";
-import { Bullet } from "./Bullet/Bullet";
 import { BulletFactory } from "./Bullet/BulletFactory";
 
 const PLAYER_SIZE = 20;
