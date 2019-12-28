@@ -21,13 +21,16 @@ export class Bullet extends GameObject {
         bullet.applyQuaternion(quaternion);
         this.sceneObject = bullet;
         // Outline
-        const OUTLINE_SIZE = BULLET_RADIUS * 0.05;
+        const OUTLINE_SIZE = BULLET_RADIUS * 0.1;
         const outlineGeometry = new THREE.SphereGeometry(
             BULLET_RADIUS + OUTLINE_SIZE, 
             6, 
             6
         );
-        let outlineMaterial = new THREE.MeshBasicMaterial({ color : 0x0000000, side: THREE.BackSide });
+        let outlineMaterial = new THREE.MeshBasicMaterial({ 
+            color : 0x000000, 
+            side: THREE.BackSide 
+        });
         let bulletOutline = new THREE.Mesh(
             outlineGeometry, 
             outlineMaterial

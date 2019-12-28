@@ -3,7 +3,7 @@ import { GameObject } from "./GameObject";
 import { BulletFactory } from "./Bullet/BulletFactory";
 
 const PLAYER_SIZE = 20;
-const PLAYER_SPEED = 3;
+const PLAYER_SPEED = 1.5;
 const SHOOTING_SPEED = 0.3;
 
 // TODO
@@ -13,7 +13,7 @@ export class Player extends GameObject {
         this.bulletFactory = new BulletFactory(this);
         this.shootingClock = new THREE.Clock(false);
         this.shootingClock.start();
-        const OUTLINE_SIZE = PLAYER_SIZE * 0.05;
+        const OUTLINE_SIZE = PLAYER_SIZE * 0.1;
         this.PLAYER_Y = OUTLINE_SIZE + PLAYER_SIZE / 2;
         this.lookAt = new THREE.Vector3();
         this.moveTo = new THREE.Vector3();
@@ -25,7 +25,7 @@ export class Player extends GameObject {
             PLAYER_SIZE
         );
         let playerColor = this.getInputHandler().colorHandler.hexColor;
-        let material = new THREE.MeshBasicMaterial( { color: new THREE.Color(playerColor) } );
+        let material = new THREE.MeshBasicMaterial({ color: new THREE.Color(playerColor) });
         let player = new THREE.Mesh(
             geometry, 
             material
@@ -40,7 +40,10 @@ export class Player extends GameObject {
             PLAYER_SIZE + OUTLINE_SIZE, 
             PLAYER_SIZE + OUTLINE_SIZE
         );
-        let outlineMaterial = new THREE.MeshBasicMaterial({ color : 0x0000000, side: THREE.BackSide });
+        let outlineMaterial = new THREE.MeshBasicMaterial({ 
+            color : 0x000000, 
+            side: THREE.BackSide 
+        });
         let playerOutline = new THREE.Mesh(
             outlineGeometry, 
             outlineMaterial
