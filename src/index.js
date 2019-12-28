@@ -9,7 +9,6 @@ let cameraHandler;
 let uiHandler;
 
 window.onload = () => {
-    // init the scene
     uiHandler = new UiHandler();
     cameraHandler = new CameraHandler();
     inputHandler = new InputHandler();

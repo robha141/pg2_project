@@ -7,6 +7,7 @@ export const INPUT_COLORS = {
 
 /**
  * Handler class for selected color. Whenever users select new color, this class will automatically update it's contents.
+ * Property hex color is in '#xxxxxx' format and colors always contains 3 values.
  */
 export class ColorHandler {
     constructor() {
@@ -44,7 +45,7 @@ export class ColorHandler {
                 hexColorArray.splice(color + 1, 1, 'f');
             }
         });
-        hexColorArray.unshift('0x');
+        hexColorArray.unshift('#');
         this.hexColor = hexColorArray.join('');
     }
 
