@@ -40,6 +40,7 @@ window.onkeydown = (event) => {
     }
     inputHandler.colorHandler.handleInput(event.code);
     uiHandler.updateColors(inputHandler.colorHandler.colors);
+    game.getPlayer().changeColor();
 };
 
 window.onkeyup = (event) => {

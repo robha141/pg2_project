@@ -24,7 +24,8 @@ export class Player extends GameObject {
             PLAYER_SIZE, 
             PLAYER_SIZE
         );
-        let material = new THREE.MeshBasicMaterial( {color: 0xffffff} );
+        let playerColor = this.getInputHandler().colorHandler.hexColor;
+        let material = new THREE.MeshBasicMaterial( { color: new THREE.Color(playerColor) } );
         let player = new THREE.Mesh(
             geometry, 
             material
@@ -143,5 +144,12 @@ export class Player extends GameObject {
 
     stopShooting() {
         this.shootingClock.stop();
+    }
+
+    // Color change
+
+    changeColor() {
+        let hexColor = this.getInputHandler().colorHandler.hexColor;
+        this.sceneObject.material.color.setStyle(hexColor);
     }
 }
