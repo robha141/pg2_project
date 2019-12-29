@@ -8,11 +8,13 @@ const BULLET_LIFETIME = 1500;
 export class Bullet extends GameObject {
     constructor(game, color, quaternion, startPosition) {
         super(game);
+        this.color = color;
         const geometry = new THREE.SphereGeometry(
             BULLET_RADIUS, 
             6, 
             6
         );
+        geometry.computeBoundingBox();
         const material = new THREE.MeshBasicMaterial({ color: color });
         const bullet = new THREE.Mesh(geometry, material);
         bullet.position.x = startPosition.x;
@@ -36,12 +38,18 @@ export class Bullet extends GameObject {
             outlineMaterial
         );
         bullet.add(bulletOutline);
-        setInterval(() => {
-            this.removeFromSceneAndGame();
+        this.lifeTimeInterval = setInterval(() => {
+            this.removeBullet();
         }, BULLET_LIFETIME);
     }
 
     onUpdate() {
+        this.updateBoundingBox();
         this.sceneObject.translateZ(BULLET_SPEED);
+    }
+
+    removeBullet() {
+        clearInterval(this.lifeTimeInterval);
+        this.removeFromSceneAndGame();
     }
 }

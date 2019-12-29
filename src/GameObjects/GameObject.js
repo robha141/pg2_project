@@ -80,4 +80,9 @@ export class GameObject {
         box.applyMatrix4(this.sceneObject.matrixWorld);
         this.boundingBox = box;
     }
+
+    getFirstCollision(className) {
+        let objects = this.game.getAllObjectsOfClass(className);
+        return objects.find(object => this.boundingBox.intersectsBox(object.boundingBox));
+    }
 }

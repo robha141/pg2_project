@@ -26,8 +26,7 @@ export default class Game {
         terrain.addToGame();
         const player = new Player(this);
         player.addToGame();
-        
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.resize();
         document.body.appendChild( this.renderer.domElement );
     }
 
@@ -36,9 +35,9 @@ export default class Game {
     startGame() {
         this.isPaused = false;
         this.render();
+        this.enemyFactory.makeEnemy();
         this.enemySpawn = setInterval(() => {
             this.enemyFactory.makeEnemy();
-            clearInterval(this.enemySpawn);
         }, 2500);
     }
 
@@ -47,10 +46,22 @@ export default class Game {
         clearInterval(this.enemySpawn);
     }
 
-    render() {
-        if (this.isPaused) {
-            return;
+    restart() {
+        this.pauseGame();
+        while (this.objects && this.objects.length) {
+            let object = this.objects.pop();
+            object.removeSceneObject();
         }
+        const terrain = new Terrain(this);
+        terrain.addToGame();
+        const player = new Player(this);
+        player.addToGame();
+    }
+
+    // Game loop
+
+    render() {
+        if (this.isPaused) { return; }
         requestAnimationFrame(() => this.render());
         this.objects.forEach(object => object.onUpdate());
         this.renderer.render(this.scene.scene, this.cameraHandler.camera);
@@ -83,5 +94,9 @@ export default class Game {
 
     getAllObjectsOfClass(className) {
         return this.objects.filter(object => object.constructor.name == className);
+    }
+
+    resize() {
+        this.renderer.setSize(window.innerWidth, window.innerHeight);
     }
 }

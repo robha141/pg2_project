@@ -14,10 +14,9 @@ export class EnemyFactory {
     makeEnemy() {
         const spawnLocation = this.calculateSpawnLocation();
         this.colorHandler.generateRandomColor();
-        const color = new THREE.Color(this.colorHandler.hexColor);
         const enemy = new Enemy(
             this.game, 
-            color, 
+            this.colorHandler.getColor(), 
             spawnLocation
         );
         enemy.addToGame();

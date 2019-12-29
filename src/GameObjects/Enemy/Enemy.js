@@ -7,6 +7,7 @@ const ENEMY_SPEED = 1;
 export class Enemy extends GameObject {
     constructor(game, color, spawnLocation) {
         super(game);
+        this.color = color;
         // Enemy
         const geometry = new THREE.DodecahedronBufferGeometry(ENEMY_SIZE);
         geometry.computeBoundingBox();
@@ -30,8 +31,18 @@ export class Enemy extends GameObject {
 
     onUpdate() {
         this.updateBoundingBox();
+        this.controlCollision();
         const playerPosition = this.game.getPlayer().position;
         this.sceneObject.lookAt(playerPosition);
         this.sceneObject.translateZ(ENEMY_SPEED);
+    }
+
+    controlCollision() {
+        let bullet = this.getFirstCollision('Bullet');
+        if (bullet == null) { return; }
+        if (bullet.color.getHex() == this.color.getHex()) {
+            this.removeFromSceneAndGame();
+        }
+        bullet.removeBullet();
     }
 }

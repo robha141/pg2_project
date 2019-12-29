@@ -7,6 +7,10 @@ let game;
 let inputHandler;
 let uiHandler;
 
+window.onresize = () => {
+    game.resize();
+}
+
 window.onload = () => {
     uiHandler = new UiHandler();
     const cameraHandler = new CameraHandler();

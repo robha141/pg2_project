@@ -7,10 +7,9 @@ export class BulletFactory {
     }
 
     makeBullet() {
-        const colorHex = this.player.getInputHandler().colorHandler.hexColor;
         const bullet = new Bullet(
             this.player.game, 
-            new THREE.Color(colorHex), 
+            this.player.getInputHandler().colorHandler.getColor(), 
             this.player.sceneObject.quaternion, 
             this.player.position
         );

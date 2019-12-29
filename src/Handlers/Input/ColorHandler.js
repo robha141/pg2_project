@@ -1,4 +1,5 @@
 import { getRandomInt } from "../../Utils";
+import * as THREE from "three";
 
 export const INPUT_COLORS = {
     RED: 0,
@@ -39,7 +40,8 @@ export class ColorHandler {
 
     calculateNewColor() {
         let hexColorArray = ['0', '0', '0', '0', '0', '0'];
-        this.colors.forEach(color => {
+        let colors = [...new Set(this.colors)];
+        colors.forEach(color => {
             if (hexColorArray[color] != 'f') {
                 hexColorArray.splice(color, 1, 'f');
             } else if (hexColorArray[color + 1] != 'f') {
@@ -64,5 +66,9 @@ export class ColorHandler {
         }
         this.colors = colors;
         this.calculateNewColor();
+    }
+
+    getColor() {
+        return new THREE.Color(this.hexColor);
     }
 }

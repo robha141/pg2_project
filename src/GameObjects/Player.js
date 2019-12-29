@@ -71,7 +71,6 @@ export class Player extends GameObject {
         this.calculateNewPosition();
         this.updatePlayerObject();
         this.getCameraHandler().updateCamera(this.position);
-        this.controlCollisions();
     }
 
     updatePlayerObject() {
@@ -157,17 +156,5 @@ export class Player extends GameObject {
     changeColor() {
         let hexColor = this.getInputHandler().colorHandler.hexColor;
         this.sceneObject.material.color.setStyle(hexColor);
-    }
-
-    // Collisions
-
-    controlCollisions() {
-        let objects = this.game.getAllObjectsOfClass('Enemy');
-        objects.forEach(enemy => { 
-            console.log(enemy);
-            let intersect = this.boundingBox.intersectsBox(enemy.boundingBox);
-            
-            console.log(intersect);
-        });
     }
 }
