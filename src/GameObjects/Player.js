@@ -10,6 +10,7 @@ const SHOOTING_SPEED = 0.3;
 // - player rotation with quaternion
 export class Player extends GameObject {
     onSetup() {
+        this.health = 5;
         this.bulletFactory = new BulletFactory(this);
         this.shootingClock = new THREE.Clock(false);
         this.shootingClock.start();
@@ -55,6 +56,7 @@ export class Player extends GameObject {
 
     onUpdate() {
         this.updateBoundingBox();
+        this.controlCollisions();
         const terrain = this.game.getTerrain();
         if (this.playerIsShooting()) {
             this.calculateRotation(terrain.getSceneObjectIntersection());
@@ -156,5 +158,15 @@ export class Player extends GameObject {
     changeColor() {
         let hexColor = this.getInputHandler().colorHandler.hexColor;
         this.sceneObject.material.color.setStyle(hexColor);
+    }
+
+    // Collisions
+
+    controlCollisions() {
+        let enemy = this.getFirstCollision('Enemy');
+        if (enemy == null) { return; }
+        this.health--;
+        enemy.removeFromSceneAndGame();
+        this.game.enemyHit();
     }
 }

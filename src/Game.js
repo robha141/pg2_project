@@ -107,4 +107,8 @@ export default class Game {
         this.scoreHanlder.enemyKill();
         this.uiHandler.updateScore(this.scoreHanlder.score);
     }
+
+    enemyHit() {
+        this.scoreHanlder.resetUninterauptedKillCount();
+    }
 }

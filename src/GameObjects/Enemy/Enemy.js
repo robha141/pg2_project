@@ -2,7 +2,7 @@ import { GameObject } from "../GameObject";
 import * as THREE from "three";
 
 const ENEMY_SIZE = 15;
-const ENEMY_SPEED = 1;
+const ENEMY_SPEED = 0.1;
 
 export class Enemy extends GameObject {
     constructor(game, color, spawnLocation) {
