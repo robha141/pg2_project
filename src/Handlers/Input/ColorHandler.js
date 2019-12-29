@@ -1,3 +1,4 @@
+import { getRandomInt } from "../../Utils";
 
 export const INPUT_COLORS = {
     RED: 0,
@@ -52,5 +53,16 @@ export class ColorHandler {
     newColorSelected(color) {
         this.colors.pop();
         this.colors.unshift(color);
+    }
+
+    generateRandomColor() {
+        let colors = [];
+        let i;
+        for (i = 0; i < 3; i++) {
+            let color = getRandomInt(0, 2) * 2;
+            colors.push(color);
+        }
+        this.colors = colors;
+        this.calculateNewColor();
     }
 }

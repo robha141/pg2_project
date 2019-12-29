@@ -3,11 +3,11 @@ import * as THREE from "three";
 
 const BULLET_SPEED = 5;
 const BULLET_RADIUS = 3;
+const BULLET_LIFETIME = 1500;
 
 export class Bullet extends GameObject {
     constructor(game, color, quaternion, startPosition) {
         super(game);
-        this.clock = new THREE.Clock();
         const geometry = new THREE.SphereGeometry(
             BULLET_RADIUS, 
             6, 
@@ -36,12 +36,12 @@ export class Bullet extends GameObject {
             outlineMaterial
         );
         bullet.add(bulletOutline);
+        setInterval(() => {
+            this.removeFromSceneAndGame();
+        }, BULLET_LIFETIME);
     }
 
     onUpdate() {
         this.sceneObject.translateZ(BULLET_SPEED);
-        if (this.clock.getElapsedTime() >= 1) {
-            this.removeFromSceneAndGame();
-        }
     }
 }

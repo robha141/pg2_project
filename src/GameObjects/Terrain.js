@@ -1,15 +1,20 @@
 import * as THREE from "three";
 import { GameObject } from "./GameObject";
 
-export const TERRAIN_WIDTH = 500;
-export const TERRAIN_LENGTH = 500;
+export const TERRAIN_SIZE = 500;
+export const TERRAIN_SIDES = {
+    N: 0,
+    S: 1,
+    W: 2,
+    E: 3
+}
 
 export default class Terrain extends GameObject {
     onSetup() {
         let terrain = new THREE.Mesh(
             new THREE.PlaneBufferGeometry(
-                TERRAIN_WIDTH, 
-                TERRAIN_LENGTH
+                TERRAIN_SIZE, 
+                TERRAIN_SIZE
             ), 
             new THREE.MeshPhongMaterial({ color: 0xffffff, depthWrite: false })
         );
@@ -17,7 +22,7 @@ export default class Terrain extends GameObject {
         this.sceneObject = terrain;
         // Grid
         var grid = new THREE.GridHelper(
-            TERRAIN_LENGTH, 
+            TERRAIN_SIZE, 
             40, 
             0x000000, 
             0x000000

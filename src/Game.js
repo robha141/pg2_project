@@ -3,8 +3,10 @@ import { Scene } from "./Scene";
 import { Player } from "./GameObjects/Player";
 import Terrain from "./GameObjects/Terrain";
 import { RaycastHandler } from "./Handlers/RaycastHanldler";
-import { Enemy } from "./GameObjects/Enemy/Enemy";
+import { EnemyFactory } from "./GameObjects/Enemy/EnemyFactory";
 
+// TODO
+// spawning in different class.
 export default class Game {
     constructor(inputHandler, cameraHandler) {
         this.inputHandler = inputHandler;
@@ -13,22 +15,16 @@ export default class Game {
         this.renderer = new THREE.WebGLRenderer();
         this.raycastHandler = new RaycastHandler(inputHandler, cameraHandler);
         this.objects = [];
+        this.enemyFactory = new EnemyFactory(this);
     }
 
     // Setup
 
     initialSetup() {
-        
         const terrain = new Terrain(this);
         terrain.addToGame();
         const player = new Player(this);
         player.addToGame();
-        const enemy = new Enemy(
-            this, 
-            new THREE.Color(0xff0000),
-            new THREE.Vector3(50, 0, 50)
-        );
-        enemy.addToGame();
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild( this.renderer.domElement );
     }
@@ -36,7 +32,10 @@ export default class Game {
     // Render loop
 
     startGame() {
-        this.render()
+        this.render();
+        setInterval(() => {
+            // this.enemyFactory.makeEnemy();
+        }, 2500);
     }
 
     pauseGame() {
@@ -55,7 +54,6 @@ export default class Game {
      * Called automatically in constructor when creating subclass of GameObject.
      */
     addGameObject(object) {
-        console.log(object);
         object.onSetup();
         this.objects.push(object);
     }
