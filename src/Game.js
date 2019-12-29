@@ -3,6 +3,7 @@ import { Scene } from "./Scene";
 import { Player } from "./GameObjects/Player";
 import Terrain from "./GameObjects/Terrain";
 import { RaycastHandler } from "./Handlers/RaycastHanldler";
+import { Enemy } from "./GameObjects/Enemy/Enemy";
 
 export default class Game {
     constructor(inputHandler, cameraHandler) {
@@ -17,10 +18,17 @@ export default class Game {
     // Setup
 
     initialSetup() {
+        
         const terrain = new Terrain(this);
         terrain.addToGame();
         const player = new Player(this);
         player.addToGame();
+        const enemy = new Enemy(
+            this, 
+            new THREE.Color(0xff0000),
+            new THREE.Vector3(50, 0, 50)
+        );
+        enemy.addToGame();
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild( this.renderer.domElement );
     }
@@ -47,6 +55,7 @@ export default class Game {
      * Called automatically in constructor when creating subclass of GameObject.
      */
     addGameObject(object) {
+        console.log(object);
         object.onSetup();
         this.objects.push(object);
     }

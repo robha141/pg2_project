@@ -58,14 +58,6 @@ export class GameObject {
         return this.game.raycastHandler.getFirstIntersection([this.sceneObject]);
     }
 
-    getIntersections(objects) {
-        return this.game.raycastHandler.getIntersections(objects);
-    }
-
-    getFirstIntersection(objects) {
-        return this.game.raycastHandler.getFirstIntersection(objects);
-    }
-
     getInputHandler() {
         return this.game.inputHandler;
     }

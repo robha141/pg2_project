@@ -5,12 +5,11 @@ import { UiHandler } from './Handlers/UiHandler';
 
 let game;
 let inputHandler;
-let cameraHandler;
 let uiHandler;
 
 window.onload = () => {
     uiHandler = new UiHandler();
-    cameraHandler = new CameraHandler();
+    const cameraHandler = new CameraHandler();
     inputHandler = new InputHandler();
     uiHandler.updateColors(inputHandler.colorHandler.colors);
     game = new Game(inputHandler, cameraHandler);
@@ -35,7 +34,7 @@ window.onmousemove = (event) => {
 };
 
 window.onkeydown = (event) => {
-    if (event.key == ' ') {
+    if (event.key == 'Shift') {
         inputHandler.holdingShiftKey(true);
     }
     inputHandler.colorHandler.handleInput(event.code);
@@ -44,7 +43,7 @@ window.onkeydown = (event) => {
 };
 
 window.onkeyup = (event) => {
-    if (event.key == ' ') {
+    if (event.key == 'Shift') {
         inputHandler.holdingShiftKey(false);
     }
 };
