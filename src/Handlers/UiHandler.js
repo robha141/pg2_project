@@ -5,6 +5,7 @@ export class UiHandler {
         this.firstCircle = document.getElementById("firstCircle");
         this.secondCircle = document.getElementById("secondCircle");
         this.thirdCircle = document.getElementById("thirdCircle");
+        this.pauseButton = document.getElementById("pause");
     }
 
     updateColors(colors) {
@@ -25,5 +26,9 @@ export class UiHandler {
             element.style.background = 'blue';
             break;
         }
+    }
+
+    updatePause(paused) {
+        this.pauseButton.textContent = paused ? 'Play' : 'Pause';
     }
 }

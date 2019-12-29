@@ -9,6 +9,7 @@ import { EnemyFactory } from "./GameObjects/Enemy/EnemyFactory";
 // spawning in different class.
 export default class Game {
     constructor(inputHandler, cameraHandler) {
+        this.isPaused = false;
         this.inputHandler = inputHandler;
         this.cameraHandler = cameraHandler;
         this.scene = new Scene();
@@ -25,6 +26,7 @@ export default class Game {
         terrain.addToGame();
         const player = new Player(this);
         player.addToGame();
+        
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild( this.renderer.domElement );
     }
@@ -32,17 +34,22 @@ export default class Game {
     // Render loop
 
     startGame() {
+        this.isPaused = false;
         this.render();
-        setInterval(() => {
-            // this.enemyFactory.makeEnemy();
+        this.enemySpawn = setInterval(() => {
+            this.enemyFactory.makeEnemy();
         }, 2500);
     }
 
     pauseGame() {
-        // TODO: - pause current game
+        this.isPaused = true;
+        clearInterval(this.enemySpawn);
     }
 
     render(time) {
+        if (this.isPaused) {
+            return;
+        }
         requestAnimationFrame(() => this.render());
         this.objects.forEach(object => object.onUpdate());
         this.renderer.render(this.scene.scene, this.cameraHandler.camera);

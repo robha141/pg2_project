@@ -12,6 +12,7 @@ window.onload = () => {
     const cameraHandler = new CameraHandler();
     inputHandler = new InputHandler();
     uiHandler.updateColors(inputHandler.colorHandler.colors);
+    setupTaps();
     game = new Game(inputHandler, cameraHandler);
     game.initialSetup();
     game.startGame();
@@ -34,6 +35,9 @@ window.onmousemove = (event) => {
 };
 
 window.onkeydown = (event) => {
+    if (game.isPaused) {
+        return;
+    }
     if (event.key == 'Shift') {
         inputHandler.holdingShiftKey(true);
     }
@@ -47,3 +51,10 @@ window.onkeyup = (event) => {
         inputHandler.holdingShiftKey(false);
     }
 };
+
+function setupTaps() {
+    uiHandler.pauseButton.addEventListener('click', () => {
+        game.isPaused ? game.startGame() : game.pauseGame();
+        uiHandler.updatePause(game.isPaused);
+    });
+}

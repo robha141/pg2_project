@@ -17,6 +17,25 @@ body {
     top: 0px;
     right: 24px;
     font-family: 'Wednesday';
+    font-size: 32px;
+}
+
+#pause {
+    position: absolute;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    top: 24px;
+    left: 24px;
+    font-family: 'Wednesday';
+    font-size: 32px;
+    outline: none;
+}
+
+button:hover {
+    color: orange;
 }
 
 #colorMixContainer {
