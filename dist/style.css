@@ -18,9 +18,15 @@ body {
     right: 24px;
     font-family: 'Wednesday';
     font-size: 32px;
+    color: white;
+}
+
+button:hover {
+    color: orange !important;
 }
 
 #pause {
+    color: white;
     position: absolute;
     background-color: transparent;
     background-repeat: no-repeat;
@@ -32,10 +38,6 @@ body {
     font-family: 'Wednesday';
     font-size: 32px;
     outline: none;
-}
-
-button:hover {
-    color: orange;
 }
 
 #colorMixContainer {
@@ -55,5 +57,5 @@ button:hover {
     height: 74px;
     border-radius: 50%;
     display: inline-block;
-    border: 3px solid black;
+    border: 3px solid white;
 }

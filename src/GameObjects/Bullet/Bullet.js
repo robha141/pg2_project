@@ -30,7 +30,7 @@ export class Bullet extends GameObject {
             6
         );
         let outlineMaterial = new THREE.MeshBasicMaterial({ 
-            color : 0x000000, 
+            color : 0xffffff, 
             side: THREE.BackSide 
         });
         let bulletOutline = new THREE.Mesh(

@@ -4,7 +4,7 @@ export class Scene {
     constructor() {
         this.scene = new THREE.Scene();
         // Skybox (currently just background)
-        this.scene.background = new THREE.Color(0xffffff);
+        this.scene.background = new THREE.Color(0x000000);
         // Light
         var light = new THREE.HemisphereLight(
             0xffffff, 

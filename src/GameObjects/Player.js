@@ -42,7 +42,7 @@ export class Player extends GameObject {
             PLAYER_SIZE + OUTLINE_SIZE
         );
         let outlineMaterial = new THREE.MeshBasicMaterial({ 
-            color : 0x000000, 
+            color : 0xffffff, 
             side: THREE.BackSide 
         });
         let playerOutline = new THREE.Mesh(

@@ -17,7 +17,7 @@ window.onload = () => {
     inputHandler = new InputHandler();
     uiHandler.updateColors(inputHandler.colorHandler.colors);
     setupTaps();
-    game = new Game(inputHandler, cameraHandler);
+    game = new Game(inputHandler, cameraHandler, uiHandler);
     game.initialSetup();
     game.startGame();
 };
@@ -39,21 +39,15 @@ window.onmousemove = (event) => {
 };
 
 window.onkeydown = (event) => {
-    if (game.isPaused) {
-        return;
-    }
-    if (event.key == 'Shift') {
-        inputHandler.holdingShiftKey(true);
-    }
+    if (game.isPaused) { return; }
+    if (event.key == 'Shift') { inputHandler.holdingShiftKey(true); }
     inputHandler.colorHandler.handleInput(event.code);
     uiHandler.updateColors(inputHandler.colorHandler.colors);
     game.getPlayer().changeColor();
 };
 
 window.onkeyup = (event) => {
-    if (event.key == 'Shift') {
-        inputHandler.holdingShiftKey(false);
-    }
+    if (event.key == 'Shift') { inputHandler.holdingShiftKey(false); }
 };
 
 function setupTaps() {

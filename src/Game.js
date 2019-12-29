@@ -4,12 +4,14 @@ import { Player } from "./GameObjects/Player";
 import Terrain from "./GameObjects/Terrain";
 import { RaycastHandler } from "./Handlers/RaycastHanldler";
 import { EnemyFactory } from "./GameObjects/Enemy/EnemyFactory";
+import { ScoreHandler } from "./Handlers/ScoreHandler";
 
 // TODO
 // spawning in different class.
 export default class Game {
-    constructor(inputHandler, cameraHandler) {
+    constructor(inputHandler, cameraHandler, uiHandler) {
         this.isPaused = false;
+        this.uiHandler = uiHandler;
         this.inputHandler = inputHandler;
         this.cameraHandler = cameraHandler;
         this.scene = new Scene();
@@ -17,6 +19,7 @@ export default class Game {
         this.raycastHandler = new RaycastHandler(inputHandler, cameraHandler);
         this.objects = [];
         this.enemyFactory = new EnemyFactory(this);
+        this.scoreHanlder = new ScoreHandler();
     }
 
     // Setup
@@ -30,7 +33,11 @@ export default class Game {
         document.body.appendChild( this.renderer.domElement );
     }
 
-    // Render loop
+    resize() {
+        this.renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+    // Game loop
 
     startGame() {
         this.isPaused = false;
@@ -57,8 +64,6 @@ export default class Game {
         const player = new Player(this);
         player.addToGame();
     }
-
-    // Game loop
 
     render() {
         if (this.isPaused) { return; }
@@ -96,7 +101,10 @@ export default class Game {
         return this.objects.filter(object => object.constructor.name == className);
     }
 
-    resize() {
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
+    // Score
+
+    enemyKill() {
+        this.scoreHanlder.enemyKill();
+        this.uiHandler.updateScore(this.scoreHanlder.score);
     }
 }

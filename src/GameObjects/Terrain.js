@@ -16,7 +16,7 @@ export default class Terrain extends GameObject {
                 TERRAIN_SIZE, 
                 TERRAIN_SIZE
             ), 
-            new THREE.MeshPhongMaterial({ color: 0xffffff, depthWrite: false })
+            new THREE.MeshPhongMaterial({ color: 0x000000, depthWrite: false })
         );
         terrain.rotation.x = - Math.PI / 2;
         this.sceneObject = terrain;
@@ -24,8 +24,8 @@ export default class Terrain extends GameObject {
         var grid = new THREE.GridHelper(
             TERRAIN_SIZE, 
             40, 
-            0x000000, 
-            0x000000
+            0xffffff, 
+            0xffffff
         );
         grid.material.opacity = 0.4;
         grid.material.transparent = true;

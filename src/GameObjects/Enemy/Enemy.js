@@ -18,7 +18,7 @@ export class Enemy extends GameObject {
         const OUTLINE_SIZE = ENEMY_SIZE * 0.1;
         var outlineGeometry = new THREE.DodecahedronGeometry(ENEMY_SIZE + OUTLINE_SIZE);
         var outlineMaterial = new THREE.MeshBasicMaterial({
-            color : 0x000000, 
+            color : 0xffffff, 
             side: THREE.BackSide
         });
         var outline = new THREE.Mesh(outlineGeometry, outlineMaterial);
@@ -41,6 +41,7 @@ export class Enemy extends GameObject {
         let bullet = this.getFirstCollision('Bullet');
         if (bullet == null) { return; }
         if (bullet.color.getHex() == this.color.getHex()) {
+            this.game.enemyKill();
             this.removeFromSceneAndGame();
         }
         bullet.removeBullet();

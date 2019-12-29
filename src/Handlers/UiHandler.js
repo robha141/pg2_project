@@ -6,6 +6,7 @@ export class UiHandler {
         this.secondCircle = document.getElementById("secondCircle");
         this.thirdCircle = document.getElementById("thirdCircle");
         this.pauseButton = document.getElementById("pause");
+        this.scoreText = document.getElementById("score");
     }
 
     updateColors(colors) {
@@ -30,5 +31,9 @@ export class UiHandler {
 
     updatePause(paused) {
         this.pauseButton.textContent = paused ? 'Play' : 'Pause';
+    }
+
+    updateScore(score) {
+        this.scoreText.innerText = 'Score: ' + score;
     }
 }
