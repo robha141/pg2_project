@@ -10,6 +10,9 @@ export class GameObject {
      */
     onSetup() {
         this.addSceneObject();
+        if (this.sceneObject.geometry.boundingBox != null) {
+            this.updateBoundingBox();
+        }
     }
 
     /**
@@ -64,5 +67,17 @@ export class GameObject {
 
     getCameraHandler() {
         return this.game.cameraHandler;
+    }
+
+    // Collisions
+
+    /**
+     * Bounding box should be set on geometry, othrewise this function will not work.
+     */
+    updateBoundingBox() {
+        this.sceneObject.updateMatrixWorld();
+        let box = this.sceneObject.geometry.boundingBox.clone();
+        box.applyMatrix4(this.sceneObject.matrixWorld);
+        this.boundingBox = box;
     }
 }

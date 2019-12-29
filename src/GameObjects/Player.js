@@ -24,6 +24,7 @@ export class Player extends GameObject {
             PLAYER_SIZE, 
             PLAYER_SIZE
         );
+        geometry.computeBoundingBox();
         let playerColor = this.getInputHandler().colorHandler.hexColor;
         let material = new THREE.MeshBasicMaterial({ color: new THREE.Color(playerColor) });
         let player = new THREE.Mesh(
@@ -53,6 +54,7 @@ export class Player extends GameObject {
     }
 
     onUpdate() {
+        this.updateBoundingBox();
         const terrain = this.game.getTerrain();
         if (this.playerIsShooting()) {
             this.calculateRotation(terrain.getSceneObjectIntersection());
@@ -69,6 +71,7 @@ export class Player extends GameObject {
         this.calculateNewPosition();
         this.updatePlayerObject();
         this.getCameraHandler().updateCamera(this.position);
+        this.controlCollisions();
     }
 
     updatePlayerObject() {
@@ -154,5 +157,17 @@ export class Player extends GameObject {
     changeColor() {
         let hexColor = this.getInputHandler().colorHandler.hexColor;
         this.sceneObject.material.color.setStyle(hexColor);
+    }
+
+    // Collisions
+
+    controlCollisions() {
+        let objects = this.game.getAllObjectsOfClass('Enemy');
+        objects.forEach(enemy => { 
+            console.log(enemy);
+            let intersect = this.boundingBox.intersectsBox(enemy.boundingBox);
+            
+            console.log(intersect);
+        });
     }
 }

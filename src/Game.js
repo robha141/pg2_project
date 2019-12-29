@@ -38,6 +38,7 @@ export default class Game {
         this.render();
         this.enemySpawn = setInterval(() => {
             this.enemyFactory.makeEnemy();
+            clearInterval(this.enemySpawn);
         }, 2500);
     }
 
@@ -46,7 +47,7 @@ export default class Game {
         clearInterval(this.enemySpawn);
     }
 
-    render(time) {
+    render() {
         if (this.isPaused) {
             return;
         }
@@ -78,5 +79,9 @@ export default class Game {
 
     getTerrain() {
         return this.objects[0];
+    }
+
+    getAllObjectsOfClass(className) {
+        return this.objects.filter(object => object.constructor.name == className);
     }
 }

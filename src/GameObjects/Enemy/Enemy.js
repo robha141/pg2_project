@@ -9,6 +9,7 @@ export class Enemy extends GameObject {
         super(game);
         // Enemy
         const geometry = new THREE.DodecahedronBufferGeometry(ENEMY_SIZE);
+        geometry.computeBoundingBox();
         const material = new THREE.MeshBasicMaterial({ color: color });
         const enemy = new THREE.Mesh(geometry, material);
         this.sceneObject = enemy;
@@ -28,6 +29,7 @@ export class Enemy extends GameObject {
     }
 
     onUpdate() {
+        this.updateBoundingBox();
         const playerPosition = this.game.getPlayer().position;
         this.sceneObject.lookAt(playerPosition);
         this.sceneObject.translateZ(ENEMY_SPEED);
