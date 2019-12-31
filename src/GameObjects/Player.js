@@ -61,18 +61,24 @@ export class Player extends GameObject {
         if (this.playerIsShooting()) {
             this.calculateRotation(terrain.getSceneObjectIntersection());
             this.setNewPosition(this.position);
+            this.updatePlayerObject();
             this.shoot();
         } else if (this.playerIsMoving()) {
+            this.stopShooting();
             const point = terrain.getSceneObjectIntersection();
             this.setNewPosition(point);
             this.calculateRotation(point);
-            this.stopShooting();
+            this.move();
         } else {
-            this.stopShooting();
+            this.move();    
         }
+        this.getCameraHandler().updateCamera(this.position);
+    }
+
+    move() {
+        this.stopShooting();
         this.calculateNewPosition();
         this.updatePlayerObject();
-        this.getCameraHandler().updateCamera(this.position);
     }
 
     updatePlayerObject() {
