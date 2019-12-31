@@ -103,8 +103,8 @@ export default class Game {
         return this.objects[0];
     }
 
-    getAllObjectsOfClass(className) {
-        return this.objects.filter(object => object.constructor.name == className);
+    getAllObjectsWithName(objectName) {
+        return this.objects.filter(object => object.getObjectName() == objectName);
     }
 
     // Score

@@ -1,6 +1,8 @@
 import { GameObject } from "../GameObject";
 import * as THREE from "three";
+import { BULLET_NAME } from "../Bullet/Bullet";
 
+export const ENEMY_NAME = 'Enemy';
 const ENEMY_SIZE = 15;
 
 export class Enemy extends GameObject {
@@ -37,8 +39,12 @@ export class Enemy extends GameObject {
         this.sceneObject.translateZ(this.moveSpeed);
     }
 
+    getObjectName() {
+        return ENEMY_NAME;
+    }
+
     controlCollision() {
-        let bullet = this.getFirstCollision('Bullet');
+        let bullet = this.getFirstCollision(BULLET_NAME);
         if (bullet == null) { return; }
         if (bullet.color.getHex() == this.color.getHex()) {
             this.game.enemyKill();

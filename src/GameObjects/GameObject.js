@@ -2,6 +2,7 @@ export class GameObject {
     constructor(game) {
         this.game = game;
         this.sceneObject = null;
+        this.objectName = null;
     }
 
     /**
@@ -81,8 +82,13 @@ export class GameObject {
         this.boundingBox = box;
     }
 
-    getFirstCollision(className) {
-        let objects = this.game.getAllObjectsOfClass(className);
+    getFirstCollision(objectName) {
+        let objects = this.game.getAllObjectsWithName(objectName);
         return objects.find(object => this.boundingBox.intersectsBox(object.boundingBox));
+    }
+
+    
+    getObjectName() {
+        throw new Error('Gameobject must have a name!');
     }
 }

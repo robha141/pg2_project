@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { GameObject } from "./GameObject";
 
+export const TERRAIN_NAME = 'Terrain';
 export const TERRAIN_SIZE = 500;
 export const TERRAIN_SIDES = {
     N: 0,
@@ -31,5 +32,9 @@ export default class Terrain extends GameObject {
         grid.material.transparent = true;
         this.game.scene.add(grid);
         super.onSetup();
+    }
+
+    getObjectName() {
+        return TERRAIN_NAME;
     }
 }

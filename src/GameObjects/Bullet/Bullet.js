@@ -1,6 +1,7 @@
 import { GameObject } from "../GameObject";
 import * as THREE from "three";
 
+export const BULLET_NAME = 'Bullet';
 const BULLET_SPEED = 5;
 const BULLET_RADIUS = 3;
 const BULLET_LIFETIME = 1500;
@@ -46,6 +47,10 @@ export class Bullet extends GameObject {
     onUpdate() {
         this.updateBoundingBox();
         this.sceneObject.translateZ(BULLET_SPEED);
+    }
+
+    getObjectName() {
+        return BULLET_NAME;
     }
 
     removeBullet() {

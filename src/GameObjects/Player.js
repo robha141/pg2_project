@@ -1,7 +1,9 @@
 import * as THREE from "three";
 import { GameObject } from "./GameObject";
 import { BulletFactory } from "./Bullet/BulletFactory";
+import { ENEMY_NAME } from "./Enemy/Enemy";
 
+export const PLAYER_NAME = 'Player';
 const PLAYER_SIZE = 20;
 const PLAYER_SPEED = 1.5;
 const SHOOTING_SPEED = 0.3;
@@ -53,6 +55,10 @@ export class Player extends GameObject {
         );
         player.add(playerOutline);
         super.onSetup();
+    }
+
+    getObjectName() {
+        return PLAYER_NAME;
     }
 
     onUpdate() {
@@ -170,7 +176,7 @@ export class Player extends GameObject {
     // Collisions
 
     controlCollisions() {
-        let enemy = this.getFirstCollision('Enemy');
+        let enemy = this.getFirstCollision(ENEMY_NAME);
         if (enemy == null) { return; }
         this.health--;
         enemy.removeFromSceneAndGame();
