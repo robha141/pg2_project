@@ -62,12 +62,13 @@ export default class Game {
     }
 
     restart() {
-        this.pauseGame();
         while (this.objects && this.objects.length) {
             let object = this.objects.pop();
             object.removeSceneObject();
         }
         this.initialSetup();
+        this.uiHandler.toggleGameOverPopup(true);
+        this.startGame();
     }
 
     render() {

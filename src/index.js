@@ -57,7 +57,7 @@ function setupTaps() {
     const playAgainButtons = uiHandler.getPlayAgainButtons();
     for (let i = 0; i < playAgainButtons.length; i++) {
         playAgainButtons[i].addEventListener('click', () => {
-            console.log('Play again!');
+            game.restart();
         });
     }
 }
