@@ -6,18 +6,21 @@ import { Enemy } from "./Enemy";
 
 
 export class EnemyFactory {
-    constructor(game) {
+    constructor(game, difficultyHandler) {
         this.game = game;
         this.colorHandler = new ColorHandler();
+        this.difficultyHandler = difficultyHandler;
     }
 
     makeEnemy() {
+        const moveSpeed = this.difficultyHandler.calculateEnemyMoveSpeed();
         const spawnLocation = this.calculateSpawnLocation();
         this.colorHandler.generateRandomColor();
         const enemy = new Enemy(
             this.game, 
             this.colorHandler.getColor(), 
-            spawnLocation
+            spawnLocation,
+            moveSpeed
         );
         enemy.addToGame();
     }

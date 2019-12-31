@@ -5,12 +5,13 @@ import { BulletFactory } from "./Bullet/BulletFactory";
 const PLAYER_SIZE = 20;
 const PLAYER_SPEED = 1.5;
 const SHOOTING_SPEED = 0.3;
+const BASE_HEALTH = 1;
 
 // TODO
 // - player rotation with quaternion
 export class Player extends GameObject {
     onSetup() {
-        this.health = 5;
+        this.health = BASE_HEALTH;
         this.bulletFactory = new BulletFactory(this);
         this.shootingClock = new THREE.Clock(false);
         this.shootingClock.start();

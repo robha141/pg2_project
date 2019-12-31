@@ -8,6 +8,7 @@ export class UiHandler {
         this.pauseButton = document.getElementById("pause");
         this.scoreText = document.getElementById("score");
         this.healthText = document.getElementById("health");
+        this.gameOverPopup = document.getElementById("gameOverPopup");
     }
 
     updateColors(colors) {
@@ -40,5 +41,9 @@ export class UiHandler {
 
     updateHealth(health) {
         this.healthText.innerText = 'Health: ' + health;
+    }
+
+    toggleGameOverPopup(hidden) {
+        this.gameOverPopup.style.display = hidden ? 'none' : 'flex';
     }
 }

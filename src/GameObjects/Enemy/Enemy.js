@@ -2,11 +2,11 @@ import { GameObject } from "../GameObject";
 import * as THREE from "three";
 
 const ENEMY_SIZE = 15;
-const ENEMY_SPEED = 0.1;
 
 export class Enemy extends GameObject {
-    constructor(game, color, spawnLocation) {
+    constructor(game, color, spawnLocation, moveSpeed) {
         super(game);
+        this.moveSpeed = moveSpeed;
         this.color = color;
         // Enemy
         const geometry = new THREE.DodecahedronBufferGeometry(ENEMY_SIZE);
@@ -34,7 +34,7 @@ export class Enemy extends GameObject {
         this.controlCollision();
         const playerPosition = this.game.getPlayer().position;
         this.sceneObject.lookAt(playerPosition);
-        this.sceneObject.translateZ(ENEMY_SPEED);
+        this.sceneObject.translateZ(this.moveSpeed);
     }
 
     controlCollision() {

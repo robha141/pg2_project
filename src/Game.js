@@ -5,6 +5,7 @@ import Terrain from "./GameObjects/Terrain";
 import { RaycastHandler } from "./Handlers/RaycastHanldler";
 import { EnemyFactory } from "./GameObjects/Enemy/EnemyFactory";
 import { ScoreHandler } from "./Handlers/ScoreHandler";
+import { DifficultyHandler } from "./Handlers/DifficultyHandler";
 
 // TODO
 // spawning in different class.
@@ -18,21 +19,24 @@ export default class Game {
         this.renderer = new THREE.WebGLRenderer();
         this.raycastHandler = new RaycastHandler(inputHandler, cameraHandler);
         this.objects = [];
-        this.enemyFactory = new EnemyFactory(this);
-        this.scoreHanlder = new ScoreHandler();
+        this.resize();
+        document.body.appendChild(this.renderer.domElement);
     }
 
     // Setup
 
     initialSetup() {
+        this.enemyFactory = new EnemyFactory(
+            this,
+            new DifficultyHandler()
+        );
+        this.scoreHanlder = new ScoreHandler();
         const terrain = new Terrain(this);
         terrain.addToGame();
         const player = new Player(this);
         player.addToGame();
-        this.resize();
         this.uiHandler.updateHealth(player.health);
         this.uiHandler.updateScore(this.scoreHanlder.score);
-        document.body.appendChild( this.renderer.domElement );
     }
 
     resize() {
@@ -61,10 +65,7 @@ export default class Game {
             let object = this.objects.pop();
             object.removeSceneObject();
         }
-        const terrain = new Terrain(this);
-        terrain.addToGame();
-        const player = new Player(this);
-        player.addToGame();
+        this.initialSetup();
     }
 
     render() {
@@ -112,6 +113,11 @@ export default class Game {
 
     collisonWithEnemy() {
         this.scoreHanlder.resetUninterauptedKillCount();
-        this.uiHandler.updateHealth(this.getPlayer().health);
+        let health = this.getPlayer().health;
+        this.uiHandler.updateHealth(health);
+        if (health <= 0) {
+            this.pauseGame();
+            this.uiHandler.toggleGameOverPopup(false);
+        }
     }
 }
