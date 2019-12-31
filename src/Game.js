@@ -30,6 +30,8 @@ export default class Game {
         const player = new Player(this);
         player.addToGame();
         this.resize();
+        this.uiHandler.updateHealth(player.health);
+        this.uiHandler.updateScore(this.scoreHanlder.score);
         document.body.appendChild( this.renderer.domElement );
     }
 
@@ -108,7 +110,8 @@ export default class Game {
         this.uiHandler.updateScore(this.scoreHanlder.score);
     }
 
-    enemyHit() {
+    collisonWithEnemy() {
         this.scoreHanlder.resetUninterauptedKillCount();
+        this.uiHandler.updateHealth(this.getPlayer().health);
     }
 }

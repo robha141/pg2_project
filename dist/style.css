@@ -12,10 +12,20 @@ body {
     position: absolute;
 }
 
-#score {
+.label {
+    font-family: 'Wednesday';
+    font-size: 32px;
+    color: white;
+}
+
+#rightIndicators {
     position: absolute;
     top: 0px;
     right: 24px;
+}
+
+#score {
+    position: relative;
     font-family: 'Wednesday';
     font-size: 32px;
     color: white;

@@ -7,6 +7,7 @@ export class UiHandler {
         this.thirdCircle = document.getElementById("thirdCircle");
         this.pauseButton = document.getElementById("pause");
         this.scoreText = document.getElementById("score");
+        this.healthText = document.getElementById("health");
     }
 
     updateColors(colors) {
@@ -35,5 +36,9 @@ export class UiHandler {
 
     updateScore(score) {
         this.scoreText.innerText = 'Score: ' + score;
+    }
+
+    updateHealth(health) {
+        this.healthText.innerText = 'Health: ' + health;
     }
 }

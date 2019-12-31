@@ -173,6 +173,6 @@ export class Player extends GameObject {
         if (enemy == null) { return; }
         this.health--;
         enemy.removeFromSceneAndGame();
-        this.game.enemyHit();
+        this.game.collisonWithEnemy();
     }
 }
