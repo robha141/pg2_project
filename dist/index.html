@@ -10,7 +10,7 @@
 
 <!-- Top controls -->
 
-<button id="pause">Pause</button>
+<button id="pause" class="customButton">Pause</button>
 <div id="rightIndicators">
     <p id="score" class="label">Score: 0</p>
     <p id="health" class="label">Health: 0</p>
@@ -27,8 +27,30 @@
 <!-- Game over popup -->
 
 <div id="gameOverPopup" class="bgModal">
-    <div class="modalContent">
+    <div id="gameOver" class="modalContent">
+        <p class="label">😔 Game over 😔</p>
+        <div>
+            <p class="label gameOver">
+                <span class="largerFont">Your score<br></span>
+                <span class="largerFont">25</span>
+            </p>
+            <p class="label gameOver">
+                <span class="largerFont">Highscore<br></span>
+                <span class="largerFont">45</span>
+            </p>
+        </div>
+        <button class="customButton bordered playAgain">Play again</button>
+    </div>
+</div>
 
+<div id="gameOverHighScorePopup" class="bgModal">
+    <div id="gameOverHighscore" class="modalContent">
+        <p class="label">
+            🎉 Congratulations 🎉<br>
+            <span class="largerFont">New HighScore !<br></span>
+            <span class="largerFont">45<br></span>
+        </p>
+        <button class="customButton bordered playAgain">Play again</button>
     </div>
 </div>
 

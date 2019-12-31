@@ -11,6 +11,14 @@ export class UiHandler {
         this.gameOverPopup = document.getElementById("gameOverPopup");
     }
 
+    // Return elements
+
+    getPlayAgainButtons() {
+        return document.getElementsByClassName("customButton bordered playAgain");
+    }
+
+    // Updates
+
     updateColors(colors) {
         this.updateColor(colors[0], this.firstCircle);
         this.updateColor(colors[1], this.secondCircle);

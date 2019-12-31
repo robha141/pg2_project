@@ -53,6 +53,11 @@ window.onkeyup = (event) => {
 function setupTaps() {
     uiHandler.pauseButton.addEventListener('click', () => {
         game.isPaused ? game.startGame() : game.pauseGame();
-        uiHandler.updatePause(game.isPaused);
     });
+    const playAgainButtons = uiHandler.getPlayAgainButtons();
+    for (let i = 0; i < playAgainButtons.length; i++) {
+        playAgainButtons[i].addEventListener('click', () => {
+            console.log('Play again!');
+        });
+    }
 }

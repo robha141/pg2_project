@@ -47,6 +47,7 @@ export default class Game {
 
     startGame() {
         this.isPaused = false;
+        this.uiHandler.updatePause(this.isPaused);
         this.render();
         this.enemyFactory.makeEnemy();
         this.enemySpawn = setInterval(() => {
@@ -57,6 +58,7 @@ export default class Game {
     pauseGame() {
         this.isPaused = true;
         clearInterval(this.enemySpawn);
+        this.uiHandler.updatePause(this.isPaused);
     }
 
     restart() {
