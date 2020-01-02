@@ -44,11 +44,11 @@ export class UiHandler {
     }
 
     updateScore(score) {
-        this.scoreText.innerText = 'Score: ' + score;
+        this.scoreText.innerText = `Score: ${score}`;
     }
 
     updateHealth(health) {
-        this.healthText.innerText = 'Health: ' + health;
+        this.healthText.innerText = `Health: ${health}`;
     }
 
     toggleGameOverPopup(hidden) {
