@@ -1,60 +1,124 @@
-button {
-    background: lightgray;
-    padding: 2rem 3rem;
-    font-weight: bold;
-    font-size: 1rem;
-    cursor: pointer;
+@font-face {
+    font-family: 'Wednesday';
+    src: url('Wednesday.ttf');
 }
 
-#start-game {
-    background: green;
+body {
+    overflow: hidden;
+    margin: 0;
+}
+
+/* Common */
+
+.ui {
+    position: absolute;
+}
+
+/* Buttons */
+
+.customButton {
+    font-family: 'Wednesday';
+    font-size: 32px;
+    outline: none;
     color: white;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+}
+
+.customButton.bordered {
+    border: 3px solid white;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.customButton:hover {
+    color: orange !important;
+}
+
+.customButton.bordered:hover {
+    color: orange !important;
+    border: 3px solid orange !important;
+}
+
+/* Popup */
+
+.bgModal {
     position: absolute;
-    left: 45%;
-    top: 45%;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
 }
 
-#start-game:hover {
-    background: forestgreen;
+.modalContent {
+    width: 50%;
+    text-align: center;
+    background-color: white;
+    border: 3px solid white;
+    border-radius: 8px;
+    background-color: black;
 }
 
+.label.gameOver {
+    display: inline-block;
+    margin: 32px;
+}
 
-#stop-game {
-    background: red;
+.customButton.bordered.playAgain {
+    margin-bottom: 24px;
+}
+
+/* Text */
+
+span.largerFont {
+    font-size: 48px;
+}
+
+.label {
+    font-family: 'Wednesday';
+    font-size: 32px;
     color: white;
+}
+
+/* Top controls */
+
+#rightIndicators {
     position: absolute;
-    left: 55%;
-    top: 45%;
+    top: 0px;
+    right: 24px;
 }
 
-#stop-game:hover {
-    background: indianred;
-}
-
-
-#toggle-texture {
-    background: blue;
-    color: white;
+#pause {
     position: absolute;
-    left: 65%;
-    top: 45%;
+    top: 24px;
+    left: 24px;
 }
 
-#toggle-texture:hover {
-    background: dodgerblue;
-}
+/* Selected colors */
 
-#move-cube-up {
-    background: yellow;
-    color: black;
+#colorMixContainer {
     position: absolute;
-    left: 45%;
-    top: 65%;
+    width: 35%;
+    height: 98px;
+    background: rgba(0,0,0,0);
+    bottom: 12px;
+    right: 25%;
+    left: 50%;
+    margin-left:-150px;
 }
 
-#move-cube-up:hover {
-    background: orange;
+.colorMixPart {
+    margin: 12px;
+    width: 74px;
+    height: 74px;
+    border-radius: 50%;
+    display: inline-block;
+    border: 3px solid white;
 }
-
-
-

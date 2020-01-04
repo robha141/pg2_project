@@ -1,31 +1,63 @@
-import Scene from './Scene';
+import Game from './Game';
+import { InputHandler } from './Handlers/Input/InputHandler';
+import { CameraHandler } from './Handlers/CameraHandler';
+import { UiHandler } from './Handlers/UiHandler';
 
-let scene;
-let isTextureVisible = false;
+let game;
+let inputHandler;
+let uiHandler;
+
+window.onresize = () => {
+    game.resize();
+}
 
 window.onload = () => {
-    // init the scene
-    scene = new Scene();
-    scene.render();
-
-    // connect a HTML element to JS code
-    document.getElementById('start-game').addEventListener('click', () => {
-        scene.startRotation();
-    });
-    document.getElementById('stop-game').addEventListener('click', () => {
-        scene.stopRotation();
-    });
-    const toggleTextureButton = document.getElementById('toggle-texture');
-    toggleTextureButton.addEventListener('click', () => {
-        if (scene.blackHole.isTextureVisible) {
-            scene.hideTexture();
-            toggleTextureButton.innerText = "Show texture";
-        } else {
-            scene.showTexture();
-            toggleTextureButton.innerText = "Hide texture";
-        }
-    });
-    document.getElementById('move-cube-up').addEventListener('click', () => {
-        scene.blackHole.moveUp();
-    });
+    uiHandler = new UiHandler();
+    const cameraHandler = new CameraHandler();
+    inputHandler = new InputHandler();
+    uiHandler.updateColors(inputHandler.colorHandler.colors);
+    setupTaps();
+    game = new Game(inputHandler, cameraHandler, uiHandler);
+    game.initialSetup();
+    game.startGame();
 };
+
+window.onmousedown = (event) => {
+    inputHandler.holdingMouse(true);
+    inputHandler.updateMouse(event, game.renderer);
+};
+
+window.onmouseup = (event) => {
+    inputHandler.holdingMouse(false);
+    inputHandler.updateMouse(event, game.renderer);
+};
+
+window.onmousemove = (event) => {
+    if (inputHandler.mouseDown) {
+        inputHandler.updateMouse(event, game.renderer);
+    }
+};
+
+window.onkeydown = (event) => {
+    if (game.isPaused) { return; }
+    if (event.key == 'Shift') { inputHandler.holdingShiftKey(true); }
+    inputHandler.colorHandler.handleInput(event.code);
+    uiHandler.updateColors(inputHandler.colorHandler.colors);
+    game.getPlayer().changeColor();
+};
+
+window.onkeyup = (event) => {
+    if (event.key == 'Shift') { inputHandler.holdingShiftKey(false); }
+};
+
+function setupTaps() {
+    uiHandler.pauseButton.addEventListener('click', () => {
+        game.isPaused ? game.startGame() : game.pauseGame();
+    });
+    const playAgainButtons = uiHandler.getPlayAgainButtons();
+    for (let i = 0; i < playAgainButtons.length; i++) {
+        playAgainButtons[i].addEventListener('click', () => {
+            game.restart();
+        });
+    }
+}

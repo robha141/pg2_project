@@ -6,13 +6,53 @@
 </head>
 <body>
 
-<!-- Starts the animation of the black hole-->
-<button id="start-game">Start</button>
-<button id="stop-game">Stop</button>
-<button id="toggle-texture">Show texture</button>
-<button id="move-cube-up">Move cube up</button>
-
 <script src="main.js"></script>
+
+<!-- Top controls -->
+
+<button id="pause" class="customButton">Pause</button>
+<div id="rightIndicators">
+    <p id="score" class="label">Score: 0</p>
+    <p id="health" class="label">Health: 0</p>
+</div>
+
+<!-- Selected colors -->
+
+<div id="colorMixContainer">
+    <span id="firstCircle" class="colorMixPart"></span>
+    <span id="secondCircle" class="colorMixPart"></span>
+    <span id="thirdCircle" class="colorMixPart"></span>    
+</div>
+
+<!-- Game over popup -->
+
+<div id="gameOverPopup" class="bgModal">
+    <div id="gameOver" class="modalContent">
+        <p class="label">😔 Game over 😔</p>
+        <div>
+            <p class="label gameOver">
+                <span class="largerFont">Your score<br></span>
+                <span id="scoreValue" class="largerFont">25</span>
+            </p>
+            <p class="label gameOver">
+                <span class="largerFont">Highscore<br></span>
+                <span id="oldHighscoreValue" class="largerFont">45</span>
+            </p>
+        </div>
+        <button class="customButton bordered playAgain">Play again</button>
+    </div>
+</div>
+
+<div id="gameOverHighScorePopup" class="bgModal">
+    <div id="gameOverHighscore" class="modalContent">
+        <p class="label">
+            🎉 Congratulations 🎉<br>
+            <span class="largerFont">New HighScore !<br></span>
+            <span id="newHighscoreValue" class="largerFont">45<br></span>
+        </p>
+        <button class="customButton bordered playAgain">Play again</button>
+    </div>
+</div>
 
 </body>
 </html>
