@@ -4,11 +4,10 @@ import { Player } from "./GameObjects/Player";
 import Terrain from "./GameObjects/Terrain";
 import { RaycastHandler } from "./Handlers/RaycastHanldler";
 import { EnemyFactory } from "./GameObjects/Enemy/EnemyFactory";
-import { ScoreHandler } from "./Handlers/ScoreHandler";
+import { ScoreHandler } from "./Handlers/Score/ScoreHandler";
 import { DifficultyHandler } from "./Handlers/DifficultyHandler";
+import { CookieHandler } from "./Handlers/CookieHanlder";
 
-// TODO
-// spawning in different class.
 export default class Game {
     constructor(inputHandler, cameraHandler, uiHandler) {
         this.isPaused = false;
@@ -30,7 +29,7 @@ export default class Game {
             this,
             new DifficultyHandler()
         );
-        this.scoreHanlder = new ScoreHandler();
+        this.scoreHanlder = new ScoreHandler(new CookieHandler());
         const terrain = new Terrain(this);
         terrain.addToGame();
         const player = new Player(this);
@@ -67,7 +66,7 @@ export default class Game {
             object.removeSceneObject();
         }
         this.initialSetup();
-        this.uiHandler.toggleGameOverPopup(true);
+        this.uiHandler.hideScorePopup();
         this.startGame();
     }
 
@@ -120,7 +119,8 @@ export default class Game {
         this.uiHandler.updateHealth(health);
         if (health <= 0) {
             this.pauseGame();
-            this.uiHandler.toggleGameOverPopup(false);
+            const score = this.scoreHanlder.getScoreForUi();
+            this.uiHandler.showScorePopup(score);
         }
     }
 }

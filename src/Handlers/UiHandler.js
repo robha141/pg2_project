@@ -1,23 +1,29 @@
 import { INPUT_COLORS } from "./Input/ColorHandler";
+import { SCORE_TYPE } from "./Score/Score";
 
 export class UiHandler {
     constructor() {
+        // Bottom color indicators
         this.firstCircle = document.getElementById("firstCircle");
         this.secondCircle = document.getElementById("secondCircle");
         this.thirdCircle = document.getElementById("thirdCircle");
+        // Top controls
         this.pauseButton = document.getElementById("pause");
         this.scoreText = document.getElementById("score");
         this.healthText = document.getElementById("health");
+        // Popups
         this.gameOverPopup = document.getElementById("gameOverPopup");
+        this.scoreValue = document.getElementById("scoreValue");
+        this.oldHighscoreValue = document.getElementById("oldHighscoreValue");
+        this.gameOverHighScorePopup = document.getElementById("gameOverHighScorePopup");
+        this.newHighscoreValue = document.getElementById("newHighscoreValue");
     }
-
-    // Return elements
 
     getPlayAgainButtons() {
         return document.getElementsByClassName("customButton bordered playAgain");
     }
 
-    // Updates
+    // Bottom color indicators
 
     updateColors(colors) {
         this.updateColor(colors[0], this.firstCircle);
@@ -39,6 +45,8 @@ export class UiHandler {
         }
     }
 
+    // Top controls
+
     updatePause(paused) {
         this.pauseButton.textContent = paused ? 'Play' : 'Pause';
     }
@@ -51,7 +59,25 @@ export class UiHandler {
         this.healthText.innerText = `Health: ${health}`;
     }
 
-    toggleGameOverPopup(hidden) {
-        this.gameOverPopup.style.display = hidden ? 'none' : 'flex';
+    // Score popups
+
+    showScorePopup(score) {
+        console.log(score);
+        switch (score.type) {
+        case SCORE_TYPE.HIGHSCORE:
+            this.newHighscoreValue.innerText = score.value;
+            this.gameOverHighScorePopup.style.display = 'flex';           
+            break;
+        case SCORE_TYPE.NORMALSCORE:
+            this.scoreValue.innerText = score.value;
+            this.oldHighscoreValue.innerText = score.oldValue;
+            this.gameOverPopup.style.display = 'flex';
+            break;
+        }
+    }
+
+    hideScorePopup() {
+        this.gameOverPopup.style.display = 'none';
+        this.gameOverHighScorePopup.style.display = 'none';
     }
 }

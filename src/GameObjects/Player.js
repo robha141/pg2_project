@@ -7,10 +7,8 @@ export const PLAYER_NAME = 'Player';
 const PLAYER_SIZE = 20;
 export const PLAYER_SPEED = 1.5;
 const SHOOTING_SPEED = 0.3;
-const BASE_HEALTH = 5;
+const BASE_HEALTH = 1;
 
-// TODO
-// - player rotation with quaternion
 export class Player extends GameObject {
     onSetup() {
         this.health = BASE_HEALTH;

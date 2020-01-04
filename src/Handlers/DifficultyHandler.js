@@ -1,6 +1,6 @@
 import * as THREE from "three";
 
-const ENEMY_SPEED_UPDATE = 0.3;
+const ENEMY_SPEED_UPDATE = 0.5;
 const BASE_ENEMY_SPEED = 0.5;
 const UPDATE_THRESHOLD = 20;
 
@@ -16,7 +16,7 @@ export class DifficultyHandler {
     }
 
     calculateEnemyMoveSpeed() {
-        if (this.clock.getElapsedTime() > UPDATE_THRESHOLD) {
+        if (this.clock.getElapsedTime() > UPDATE_THRESHOLD && this.currentEnemyMoveSpeed < PLAYER_SPEED ) {
             this.resetCLock();
             this.currentEnemyMoveSpeed += ENEMY_SPEED_UPDATE;
         }
