@@ -1,6 +1,7 @@
 import * as THREE from "three";
+import { PLAYER_SPEED } from "../GameObjects/Player";
 
-const ENEMY_SPEED_UPDATE = 0.5;
+const ENEMY_SPEED_UPDATE = 0.2;
 const BASE_ENEMY_SPEED = 0.5;
 const UPDATE_THRESHOLD = 20;
 
